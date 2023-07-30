@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University - Signup</title>
+  <style>
+    /* CSS styles */
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  background-image: url('school2.jpeg');
+  background-attachment: fixed;  
+  background-size: cover;  
+}
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .signup-form {
+      width: 400px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .role-tabs {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .role-tabs label {
+      flex: 1;
+      padding: 10px 20px;
+      background-color: #eee;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .role-tabs label.selected {
+      background-color: #8b5d2e;
+      color: #fff;
+    }
+
+    .register-button {
+      width: 100%;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .login-link a {
+      color: #333;
+      text-decoration: none;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const studentTab = document.getElementById("student-tab");
+      const teacherTab = document.getElementById("teacher-tab");
+      const signupForm = document.querySelector("form");
+      const firstNameInput = document.getElementById("first-name");
+      const lastNameInput = document.getElementById("last-name");
+      const phoneInput = document.getElementById("phone");
+      const emailInput = document.getElementById("email");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+
+      studentTab.addEventListener("click", function() {
+        studentTab.classList.add("selected");
+        teacherTab.classList.remove("selected");
+      });
+
+      teacherTab.addEventListener("click", function() {
+        teacherTab.classList.add("selected");
+        studentTab.classList.remove("selected");
+      });
+
+      signupForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const role = studentTab.classList.contains("selected") ? "student" : "teacher";
+        const data = {
+          username: usernameInput.value,
+          password: passwordInput.value,
+          firstname: firstNameInput.value,
+          lastname: lastNameInput.value,
+          phoneno: phoneInput.value,
+          email: emailInput.value,
+          role: role
+        };
+        registerUser(data);
+      });
+
+      function registerUser(data) {
+        fetch("http://localhost:8080/sms/userlogin/signupuser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          if (response.ok) {
+            alert("User has been registered successfully.");
+            // Reset the form for another user
+            signupForm.reset();
+          } else {
+            alert("Username already exists. Choose a different username.");
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="signup-form">
+      <h1 class="heading">Signup</h1>
+      <div class="role-tabs">
+        <label id="student-tab" class="selected">Student</label>
+        <label id="teacher-tab">Teacher</label>
+      </div>
+      <form>
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" name="first-name" placeholder="Enter your first name">
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" name="last-name" placeholder="Enter your last name">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Choose a username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Choose a password">
+        </div>
+        <button class="register-button">Register</button>
+      </form>
+      <div class="login-link">
+        <a href="homelogin.html">Already have an account? Click here to login</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

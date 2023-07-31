@@ -8,12 +8,15 @@ import org.springframework.stereotype.Component;
 import com.myproj.spring.sms.entities.Quiz;
 import com.myproj.spring.sms.repositories.QuizRepository;
 
+import jakarta.transaction.Transactional;
+
 @Component
 public class QuizImpl implements QuizService {
 	
 	@Autowired
 	private QuizRepository quizRepository;
-
+	
+	@Transactional
 	@Override
 	public List<Quiz> saveNewQuiz(List<Quiz> q) {
 		

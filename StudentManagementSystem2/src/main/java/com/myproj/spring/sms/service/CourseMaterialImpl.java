@@ -8,12 +8,15 @@ import org.springframework.stereotype.Component;
 import com.myproj.spring.sms.entities.CourseMaterial;
 import com.myproj.spring.sms.repositories.CourseMaterialRepository;
 
+import jakarta.transaction.Transactional;
+
 @Component
 public class CourseMaterialImpl implements CourseMaterialService {
 	
 	@Autowired
 	private CourseMaterialRepository courseMaterialRepository;
-
+	
+	@Transactional
 	@Override
 	public CourseMaterial postNewMaterial(CourseMaterial cm) {
 		 

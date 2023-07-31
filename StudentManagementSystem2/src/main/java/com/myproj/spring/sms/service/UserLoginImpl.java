@@ -6,12 +6,15 @@ import org.springframework.stereotype.Component;
 import com.myproj.spring.sms.entities.UserLogin;
 import com.myproj.spring.sms.repositories.UserLoginRepository;
 
+import jakarta.transaction.Transactional;
+
 @Component
 public class UserLoginImpl implements UserLoginService {
 	
 	@Autowired
 	private UserLoginRepository userLoginRepository;
 	
+	@Transactional
 	@Override
 	public UserLogin saveTheNewUser(UserLogin u) {
 		 
@@ -23,13 +26,14 @@ public class UserLoginImpl implements UserLoginService {
 //		 
 //		return userLoginRepository.findByUsernameAndPasswordAndRole(username, password, role);
 //	}
-
+	
 	@Override
 	public UserLogin getByUsername(String username) {
 		 
 		return userLoginRepository.findByUsername(username);
 	}
-
+	
+	@Transactional
 	@Override
 	public UserLogin updateUserData(UserLogin u) {
 		 

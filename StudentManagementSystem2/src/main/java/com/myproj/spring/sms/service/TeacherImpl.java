@@ -11,12 +11,15 @@ import com.myproj.spring.sms.dto.TeacherListDTOImpl;
 import com.myproj.spring.sms.entities.Teacher;
 import com.myproj.spring.sms.repositories.TeacherRepository;
 
+import jakarta.transaction.Transactional;
+
 @Component
 public class TeacherImpl implements TeacherService {
 	
 	@Autowired
 	private TeacherRepository teacherRepository;
 	
+	@Transactional
 	@Override
 	public Teacher saveTheNewTeacher(Teacher t) {
 		 
@@ -33,6 +36,12 @@ public class TeacherImpl implements TeacherService {
 	public List<TeacherListDTOImpl> listAllTeachers() {
 		 
 		return teacherRepository.listAllTeachers();
+	}
+
+	@Override
+	public Teacher findTeacherUsingID(Long id) {
+		// TODO Auto-generated method stub
+		return teacherRepository.findByTeacherid(id);
 	}
 
 }

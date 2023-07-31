@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.myproj.spring.sms.dto.StudentListDTOImpl; // Updated import
 import com.myproj.spring.sms.dto.TeacherListDTOImpl;
+import com.myproj.spring.sms.entities.Student;
 import com.myproj.spring.sms.entities.Teacher;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
@@ -23,4 +24,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "FROM Teacher t " +
             "JOIN UserLogin u ON t.userid = u.userid")
     public List<TeacherListDTOImpl> listAllTeachers();
+    
+    @Query(value = "SELECT * FROM teacher WHERE userid = :id", nativeQuery = true)
+    public Teacher findByTeacherid(Long id);
 }

@@ -1,6 +1,9 @@
 package com.myproj.spring.sms.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myproj.spring.sms.dto.UserDTO;
+import com.myproj.spring.sms.dto.UserDataDTO;
 import com.myproj.spring.sms.entities.Student;
 import com.myproj.spring.sms.entities.Teacher;
+import com.myproj.spring.sms.entities.Course;
+import com.myproj.spring.sms.entities.Enrollment;
 import com.myproj.spring.sms.entities.UserLogin;
+import com.myproj.spring.sms.service.CourseService;
+import com.myproj.spring.sms.service.EnrollmentService;
 import com.myproj.spring.sms.service.StudentService;
 import com.myproj.spring.sms.service.TeacherService;
 import com.myproj.spring.sms.service.UserLoginService;
@@ -32,6 +40,11 @@ public class UserLoginController {
 	@Autowired
 	private TeacherService teacherService;
 	
+	@Autowired
+	private CourseService courseService;
+	
+	@Autowired
+	private EnrollmentService enrollmentService;
 	
 	// Create and handle the methods needed for the application
 	
@@ -89,14 +102,73 @@ public class UserLoginController {
 	*/
 	
 	@PostMapping("/checkuser")
-	public ResponseEntity<?> checkIfUserIsPresent(@RequestBody UserDTO u) {
-	    UserLogin user = userLoginService.findByUsernameAndPassword(u.getUsername(), u.getPassword());
-	    if (user == null) {
+	public ResponseEntity<?> checkIfUserIsPresent(@RequestBody UserDTO u) 
+	{
+		UserLogin user = userLoginService.findByUsernameAndPassword(u.getUsername(), u.getPassword());
+		
+	    if (user == null) 
+	    {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist");
-	    } else {
-	        return ResponseEntity.ok(user);
+	    } 
+	    else if(user.getRole().equalsIgnoreCase("student")) 
+	    {
+	    	Student studentdata =studentService.findStudentUsingID(user.getUserid());
+	    	System.out.println("Student id = "+studentdata.getStudentid());
+	    	List<Enrollment> enrolmentdata = enrollmentService.listAllCoursesByStudentID(studentdata.getStudentid());
+	    	
+	    	System.out.println("\n size = "+enrolmentdata.size());
+	    	if(studentdata!=null) {
+	    		UserDataDTO finalUserData = new UserDataDTO();
+	    		finalUserData.setUserdata(user);
+	    		finalUserData.setStudentid(studentdata.getStudentid());
+	    		if(enrolmentdata.size()>0) {
+	    			finalUserData.setStudent_course_reg_status("true");
+	    		}else {
+	    			finalUserData.setStudent_course_reg_status("false");
+	    		}
+	    		
+	    		return ResponseEntity.ok(finalUserData);
+	    	}else {
+	    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist");
+	    	}
+	    		
 	    }
-	}
+	    else if(user.getRole().equalsIgnoreCase("teacher")) 
+	    {
+	    	
+	    		
+	    		Teacher teacherdata = teacherService.findTeacherUsingID(user.getUserid());
+	    	 
+	    		
+	    		Course coursedata = courseService.getCourseId(teacherdata.getTeacherid());
+	    		
+	    		
+	    		if(teacherdata!=null) {
+		    		UserDataDTO finalUserData = new UserDataDTO();
+		    		finalUserData.setUserdata(user);
+		    		finalUserData.setTeacherid(teacherdata.getTeacherid());
+		    		
+		    		
+		    		
+		    		if(coursedata!=null) {
+		    		finalUserData.setCourseid(coursedata.getCourseid());
+		    		}else {
+		    			return ResponseEntity.ok(finalUserData);
+		    		}
+		    	return ResponseEntity.ok(finalUserData);
+		    	}else {
+		    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist");
+		    	}
+	    		
+	    }
+	    else 
+	    {
+	    		return ResponseEntity.ok(user);
+	    	}
+	    	
+	    	
+	    }
+	
 	
 	// Get User Details For Viewing and Modification purposes if any
 	

@@ -9,5 +9,7 @@ public interface CourseService {
 	public List<Course> listAllCourses();
 	
 	public List<Course> postAllCourses(List<Course> c);
+	
+	public Course getCourseId(long teacherid);
 
 }

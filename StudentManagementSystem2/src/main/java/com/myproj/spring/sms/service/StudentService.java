@@ -5,5 +5,7 @@ import com.myproj.spring.sms.entities.Student;
 public interface StudentService {
 	
 	public Student saveTheNewStudent(Student s);
+	
+	public Student findStudentUsingID(Long id);
 
 }

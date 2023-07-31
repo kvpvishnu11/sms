@@ -55,12 +55,16 @@ public class EnrollmentImpl implements EnrollmentService {
 		return e;
 	}
 
+	 
+
 	@Override
-	public List<Enrollment> listAllCoursesByStudentID(long student_id) {
-		 
-		return enrollmentRepository.findAllByStudentid(student_id);
-		 
+	public List<Enrollment> listAllCoursesByStudentID(long studentId) {
+		 //System.out.println("Querying enrollments for student ID: " + studentId);
+		    List<Enrollment> enrolmentdata = enrollmentRepository.findAllByStudentid(studentId);
+		 //   System.out.println("Enrollments found: " + enrolmentdata);
+		    return enrolmentdata;
 	}
+
 
 	 
 

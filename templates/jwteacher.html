@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University - Teacher Dashboard</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed;  
+      background-size: cover;  
+    }
+
+    .dashboard-container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-header .user-name {
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar-menu li a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dashboard-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .dashboard-tiles {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .tile {
+      width: 300px;
+      height: 200px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+    }
+
+    .tile-heading {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .tile-content {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span>Hello, </span>
+        <span class="user-name">Teacherxx</span>
+      </div>
+      <ul class="sidebar-menu">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Grades</a></li>
+        <li><a href="#" onclick="logout()">Logout</a></li>
+      </ul>
+    </div>
+    <div class="dashboard-content">
+      <div class="dashboard-tiles">
+        <div class="tile">
+          <div class="tile-heading">Total Class Students</div>
+          <a href="classstudents.html">Click here to view</a>
+        </div>
+        <div class="tile">
+          <div class="tile-heading">Add Content</div>
+          <a href="javascript:void(0);" onclick="goToAddContent()">Click here to add</a>
+        </div>
+        <div class="tile">
+          <div class="tile-heading">Add Quizzes</div>
+          <a href="addquizzes.html">Click here to add</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <script>
+    function goToAddContent() {
+       var courseName = "Course XYZ";
+
+       var encodedCourseName = encodeURIComponent(courseName);
+
+       var contentUrl = "content.html?course=" + encodedCourseName;
+
+       window.location.href = contentUrl;
+    }
+
+     function logout() {
+       window.location.href = "homelogin.html";
+    }
+  </script>
+</body>
+</html>

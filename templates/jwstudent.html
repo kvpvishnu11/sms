@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University - Student Dashboard</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed;  
+      background-size: cover;  
+    }
+
+    .dashboard-container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-header .user-name {
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar-menu li a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dashboard-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .dashboard-tiles {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .tile {
+      width: 300px;
+      height: 200px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+    }
+
+    .tile-heading {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .tile-content {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .tile-content a {
+      text-decoration: none;
+      color: #007BFF;  
+    }
+
+    .tile-content a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const logoutLink = document.getElementById("logout-link");
+      const announcementsTile = document.getElementById("announcements-tile");
+
+      logoutLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = "homelogin.html";
+      });
+
+      announcementsTile.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = "announcements.html";
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span>Hello, </span>
+        <span class="user-name">Userxx</span>
+      </div>
+      <ul class="sidebar-menu">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Grades</a></li>
+        <li><a href="#">Payments</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </div>
+    <div class="dashboard-content">
+      <div class="dashboard-tiles">
+        <div class="tile" id="register-course-tile">
+          <div class="tile-heading">Register for Classes</div>
+          <a href="registercourse.html">Click here to register</a>
+        </div>
+        <div class="tile" id="browse-classes-tile">
+          <div class="tile-heading">Browse Registered Classes</div>
+          <a href="browseclasses.html">Click here to browse</a>
+        </div>
+        <div class="tile" id="announcements-tile">
+          <div class="tile-heading">Announcements</div>
+          
+          <div class="tile-content">
+            <a href="announcements.html">Click here to view</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

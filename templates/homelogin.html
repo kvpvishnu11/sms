@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University</title>
+  <style>
+    /* CSS styles */
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  background-image: url('school2.jpeg');
+  background-attachment: fixed;  
+  background-size: cover;  
+}
+
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-form {
+      width: 400px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      padding: 10px 20px;
+      background-color: #eee;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .tabs button.active {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .login-button,
+    .signup-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .login-button button,
+    .signup-link a {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+ <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const studentTab = document.getElementById("student-tab");
+    const teacherTab = document.getElementById("teacher-tab");
+    const studentForm = document.getElementById("student-form");
+    const teacherForm = document.getElementById("teacher-form");
+
+    studentTab.addEventListener("click", function() {
+      studentTab.classList.add("active");
+      teacherTab.classList.remove("active");
+      studentForm.style.display = "block";
+      teacherForm.style.display = "none";
+    });
+
+    teacherTab.addEventListener("click", function() {
+      teacherTab.classList.add("active");
+      studentTab.classList.remove("active");
+      teacherForm.style.display = "block";
+      studentForm.style.display = "none";
+    });
+
+    studentForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const username = document.getElementById("student-username").value;
+      const password = document.getElementById("student-password").value;
+      const data = {
+        username: username,
+        password: password,
+        role: "student"
+      };
+      loginUser(data);
+    });
+
+    teacherForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const username = document.getElementById("teacher-username").value;
+      const password = document.getElementById("teacher-password").value;
+      const data = {
+        username: username,
+        password: password,
+        role: "teacher"
+      };
+      loginUser(data);
+    });
+
+    function loginUser(data) {
+      fetch("http://localhost:8080/sms/userlogin/checkuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          // Redirect to the respective screen on success
+          if (data.role === "student") {
+            window.location.href = "jwstudent.html";
+          } else if (data.role === "teacher") {
+            window.location.href = "jwteacher.html";
+          }
+        } else {
+          // Display error message on failure
+          alert("Please check your username and password.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+    }
+  });
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="login-form">
+      <div class="logo">
+        <img src="logo.png" alt="Logo">
+      </div>
+      <h1 class="heading">Member Login</h1>
+   
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password">
+        </div>
+        <div class="login-button">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <br/>
+      <div class="signup-link">
+        <a href="jwsignup.html">Sign up?</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const loginForm = document.getElementById("login-form");
+
+      loginForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const data = {
+          username: username,
+          password: password
+        };
+        loginUser(data);
+      });
+
+      function loginUser(data) {
+        fetch("http://localhost:8080/sms/userlogin/checkuser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            // Display error message on failure
+            alert("Please check your username and password.");
+            throw new Error("Invalid username or password");
+          }
+        })
+        .then(userData => {
+          // Check the role to determine whether it's a teacher, student, or admin
+          if (userData.role === "teacher") {
+            window.location.href = "jwteacher.html";
+          } else if (userData.role === "student") {
+            window.location.href = "jwstudent.html";
+          } else if (userData.role === "admin") {
+            window.location.href = "jwadmin.html";
+          } else {
+            alert("Invalid user role");
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

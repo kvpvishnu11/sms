@@ -10,7 +10,16 @@ public class UserDataDTO {
 	private long courseid;
 	private long teacherid;
 	private String student_course_reg_status;
+	private String teachingcourse;
 	
+	
+	
+	public String getTeachingcourse() {
+		return teachingcourse;
+	}
+	public void setTeachingcourse(String teachingcourse) {
+		this.teachingcourse = teachingcourse;
+	}
 	public String getStudent_course_reg_status() {
 		return student_course_reg_status;
 	}

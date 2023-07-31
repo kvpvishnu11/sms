@@ -2,6 +2,8 @@ package com.myproj.spring.sms.controllers;
 
 import java.util.List;
 
+ 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -46,7 +48,7 @@ public class UserLoginController {
 	@Autowired
 	private EnrollmentService enrollmentService;
 	
-	// Create and handle the methods needed for the application
+ 
 	
 	// NEW USER SIGN UP
 	@PostMapping("/signupuser")
@@ -56,7 +58,9 @@ public class UserLoginController {
 		
 		
 		if(userLoginService.findUser(usernamecheck)==null) {
-		
+			
+		 
+	            
 		UserLogin u1 = userLoginService.saveTheNewUser(u);
 		
 		// Save into Teacher table also if the role is "teacher"
@@ -152,6 +156,7 @@ public class UserLoginController {
 		    		
 		    		if(coursedata!=null) {
 		    		finalUserData.setCourseid(coursedata.getCourseid());
+		    		finalUserData.setTeachingcourse(coursedata.getCoursename());
 		    		}else {
 		    			return ResponseEntity.ok(finalUserData);
 		    		}

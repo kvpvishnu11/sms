@@ -13,12 +13,12 @@ public interface UserLoginRepository extends JpaRepository<UserLogin, Long> {
 	public UserLogin findByUsernameAndPasswordAndRole(String username, String password, String role);
 	*/
 	
-	@Query(value = "SELECT * FROM UserLogin WHERE username = :username AND password = :password", nativeQuery = true)
+	@Query(value = "SELECT * FROM user_login WHERE username = :username AND password = :password", nativeQuery = true)
 	public UserLogin findByUsernameAndPassword(String username, String password);
 	
 	public UserLogin findByUsername(@Param("username") String username);
 	
-	@Query(value = "SELECT * FROM UserLogin WHERE username = :username", nativeQuery = true)
+	@Query(value = "SELECT * FROM user_login WHERE username = :username", nativeQuery = true)
 	public UserLogin findByUname(String username);
 	
 	

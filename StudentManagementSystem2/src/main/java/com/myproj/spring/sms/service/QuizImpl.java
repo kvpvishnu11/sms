@@ -29,4 +29,11 @@ public class QuizImpl implements QuizService {
 		return quizRepository.getQuizQuestions(id);
 	}
 
+	@Transactional
+	@Override
+	public void deleteQuiz(long courseid) {
+		 
+		 quizRepository.deleteQuizQuestionsByCourseId(courseid);
+	}
+
 }

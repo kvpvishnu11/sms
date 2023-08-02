@@ -9,5 +9,7 @@ public interface QuizService {
 	public List<Quiz> saveNewQuiz(List<Quiz> q); 
 	
 	public List<Quiz> getQuiz(long id);
+	
+	public void deleteQuiz(long courseid);
 
 }

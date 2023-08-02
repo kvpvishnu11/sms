@@ -10,18 +10,19 @@ public class Quiz {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long quizid;
+    private long questionid;
     private String question;
     private String option1;
     private String option2;
     private String option3;
+    private String option4;
     private String rightanswer;
     private long courseid;
-	public long getQuizid() {
-		return quizid;
+	public long getQuestionid() {
+		return questionid;
 	}
-	public void setQuizid(long quizid) {
-		this.quizid = quizid;
+	public void setQuestionid(long questionid) {
+		this.questionid = questionid;
 	}
 	public String getQuestion() {
 		return question;
@@ -47,6 +48,12 @@ public class Quiz {
 	public void setOption3(String option3) {
 		this.option3 = option3;
 	}
+	public String getOption4() {
+		return option4;
+	}
+	public void setOption4(String option4) {
+		this.option4 = option4;
+	}
 	public String getRightanswer() {
 		return rightanswer;
 	}
@@ -59,6 +66,7 @@ public class Quiz {
 	public void setCourseid(long courseid) {
 		this.courseid = courseid;
 	}
-
+	 
+    
     
 }

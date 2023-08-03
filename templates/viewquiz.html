@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University - View Quiz</title>
+  <style>
+    /* Inline CSS styles for consistency */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed; /* Keeps the background image fixed while content scrolls */
+      background-size: cover; /* Adjusts the background image size to cover the entire body */
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .dashboard {
+      width: 600px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+    }
+
+    .dashboard-heading {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .quiz-question {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .quiz-options {
+      margin-left: 20px;
+      list-style: none;
+    }
+
+    .quiz-option {
+      margin-bottom: 5px;
+    }
+
+    .submit-quiz-btn {
+      display: block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .submit-quiz-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="dashboard">
+      <h2 class="dashboard-heading">Quiz</h2>
+      <div id="quizContent">
+        <!-- Quiz content will be dynamically generated here -->
+      </div>
+      <button class="submit-quiz-btn" id="submitQuizBtn">Submit Quiz</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Function to fetch and display quiz data for a specific course
+      function fetchQuizData() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseId = urlParams.get('courseid');
+
+        const url = `http://localhost:8080/sms/quiz/fetchquiz/${courseId}`;
+        fetch(url)
+          .then(response => response.json())
+          .then(quizData => {
+            const quizContent = document.getElementById("quizContent");
+            quizContent.innerHTML = ""; // Clear existing content
+
+            if (quizData.length === 0) {
+              const noQuizMessage = document.createElement("p");
+              noQuizMessage.textContent = "No quiz available for this course.";
+              quizContent.appendChild(noQuizMessage);
+            } else {
+              quizData.forEach(quiz => {
+                const quizQuestion = document.createElement("div");
+                quizQuestion.className = "quiz-question";
+                quizQuestion.textContent = quiz.question;
+                quizContent.appendChild(quizQuestion);
+
+                const quizOptions = document.createElement("ul");
+                quizOptions.className = "quiz-options";
+
+                // Option 1
+                const option1Item = document.createElement("li");
+                const option1Radio = document.createElement("input");
+                option1Radio.type = "radio";
+                option1Radio.name = "quizOption";
+                option1Radio.value = quiz.option1;
+                option1Item.appendChild(option1Radio);
+                option1Item.appendChild(document.createTextNode(quiz.option1));
+                quizOptions.appendChild(option1Item);
+
+                // Option 2
+                const option2Item = document.createElement("li");
+                const option2Radio = document.createElement("input");
+                option2Radio.type = "radio";
+                option2Radio.name = "quizOption";
+                option2Radio.value = quiz.option2;
+                option2Item.appendChild(option2Radio);
+                option2Item.appendChild(document.createTextNode(quiz.option2));
+                quizOptions.appendChild(option2Item);
+
+                // Option 3
+                const option3Item = document.createElement("li");
+                const option3Radio = document.createElement("input");
+                option3Radio.type = "radio";
+                option3Radio.name = "quizOption";
+                option3Radio.value = quiz.option3;
+                option3Item.appendChild(option3Radio);
+                option3Item.appendChild(document.createTextNode(quiz.option3));
+                quizOptions.appendChild(option3Item);
+
+                //option4
+                const option4Item = document.createElement("li");
+                const option4Radio = document.createElement("input");
+                option4Radio.type = "radio";
+                option4Radio.name = "quizOption";
+                option3Radio.value = quiz.option4;
+                option4Item.appendChild(option4Radio);
+                option4Item.appendChild(document.createTextNode(quiz.option4));
+                quizOptions.appendChild(option4Item);
+
+                quizContent.appendChild(quizOptions);
+              });
+            }
+          })
+          .catch(error => {
+            console.error("Error fetching quiz data:", error);
+          });
+      }
+
+      // Call the fetchQuizData function to populate the quiz content
+      fetchQuizData();
+
+      // Submit Quiz button click event listener
+      const submitQuizBtn = document.getElementById("submitQuizBtn");
+      submitQuizBtn.addEventListener("click", function() {
+        // Your code to handle the quiz submission here
+        // For example, you can get the selected option using:
+        const selectedOption = document.querySelector('input[name="quizOption"]:checked').value;
+        // Then you can process the answer and perform further actions as needed.
+      });
+    });
+  </script>
+</body>
+</html>

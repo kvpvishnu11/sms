@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University - Add Courses</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed; /* Keeps the background image fixed while content scrolls */
+      background-size: cover; /* Adjusts the background image size to cover the entire body */
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .add-course-form {
+      width: 600px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .add-course-button {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .add-course-button button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-button {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .submit-button button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .teacher-select-label {
+      font-weight: bold;
+    }
+
+    /* Horizontal table layout */
+    .course-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .course-table th,
+    .course-table td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .delete-button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    // JavaScript code
+    let teachersData = [];
+
+    async function fetchTeachers() {
+      const response = await fetch("http://localhost:8080/sms/teacher/getall");
+      teachersData = await response.json();
+      const teacherSelect = document.createElement("select");
+      teacherSelect.name = "teacher-select";
+      teacherSelect.classList.add("teacher-select");
+      teacherSelect.required = true;
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      defaultOption.textContent = "Select a teacher";
+      teacherSelect.appendChild(defaultOption);
+      for (const teacher of teachersData) {
+        const option = document.createElement("option");
+        option.value = teacher.teacherid;
+        option.textContent = teacher.firstname + " " + teacher.lastname;
+        teacherSelect.appendChild(option);
+      }
+      return teacherSelect;
+    }
+
+    async function addCourseField() {
+      const courseTable = document.getElementById("course-table");
+      const newRow = courseTable.insertRow(-1);
+
+      const courseNameCell = newRow.insertCell(0);
+      const teacherCell = newRow.insertCell(1);
+      const courseCreditsCell = newRow.insertCell(2);
+      const availableSeatsCell = newRow.insertCell(3);
+      const deleteCell = newRow.insertCell(4);
+
+      const courseField = document.createElement("div");
+      courseField.classList.add("form-group");
+      courseField.innerHTML = `
+        <label for="course-name"></label>
+        <input type="text" name="course-name" placeholder="Enter course name" required>
+      `;
+
+      const teacherSelect = await fetchTeachers();
+      const teacherField = document.createElement("div");
+      teacherField.classList.add("form-group");
+      teacherField.innerHTML = `
+        <label class="teacher-select-label" for="teacher-select"></label>
+      `;
+      teacherField.appendChild(teacherSelect);
+
+      const courseCreditsField = document.createElement("div");
+      courseCreditsField.classList.add("form-group");
+      courseCreditsField.innerHTML = `
+        <label for="course-credits"></label>
+        <input type="number" name="course-credits" placeholder="Enter course credits" required>
+      `;
+
+      const availableSeatsField = document.createElement("div");
+      availableSeatsField.classList.add("form-group");
+      availableSeatsField.innerHTML = `
+        <label for="available-seats"></label>
+        <input type="number" name="available-seats" placeholder="Enter available seats" required>
+      `;
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.classList.add("delete-button");
+      deleteButton.onclick = function () {
+        courseTable.deleteRow(newRow.rowIndex);
+      };
+
+      courseNameCell.appendChild(courseField);
+      teacherCell.appendChild(teacherField);
+      courseCreditsCell.appendChild(courseCreditsField);
+      availableSeatsCell.appendChild(availableSeatsField);
+      deleteCell.appendChild(deleteButton);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      addCourseField();
+
+      const addCourseButton = document.getElementById("add-course-button");
+
+      addCourseButton.addEventListener("click", function() {
+        addCourseField();
+      });
+
+      const submitButton = document.getElementById("submit-button");
+
+      submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        const courseTable = document.getElementById("course-table");
+        const courseRows = courseTable.getElementsByTagName("tr");
+        const courseData = [];
+
+        for (let i = 1; i < courseRows.length; i++) {
+          const row = courseRows[i];
+          const courseName = row.querySelector('input[name="course-name"]').value;
+          const courseCredits = row.querySelector('input[name="course-credits"]').value;
+          const availableSeats = row.querySelector('input[name="available-seats"]').value;
+          const selectedTeacherId = row.querySelector('select[name="teacher-select"]').value;
+
+          const course = {
+            courseid: i,
+            coursename: courseName,
+            coursecredits: courseCredits,
+            availableseats: availableSeats,
+            teacherid: parseInt(selectedTeacherId)
+          };
+
+          courseData.push(course);
+        }
+
+        const selectedTeachers = courseData.map(course => course.teacherid);
+        const hasDuplicates = new Set(selectedTeachers).size !== selectedTeachers.length;
+
+        if (hasDuplicates) {
+          alert("Please select different teachers for each course.");
+          return;
+        }
+
+        fetch("http://localhost:8080/sms/course/saveall", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(courseData)
+        })
+        .then(response => {
+          if (response.ok) {
+            alert("Courses added successfully!");
+            courseTable.innerHTML = ""; // Clear the table to remove added course fields
+            addCourseField(); // Add the initial course field back
+          } else {
+            alert("Failed to add the courses. Please try again.");
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+      });
+    });
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="add-course-form">
+      <h1>Add Courses</h1>
+      <table class="course-table" id="course-table">
+        <tr>
+          <th>Course Name</th>
+          <th>Teacher</th>
+          <th>Course Credits</th>
+          <th>Available Seats</th>
+          <th>Delete</th>
+        </tr>
+      </table>
+      <div class="add-course-button">
+        <button type="button" id="add-course-button">Add another course</button>
+      </div>
+      <div class="submit-button">
+        <button type="submit" id="submit-button">Submit Courses</button>
+        <button class="back-button" onclick="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>James Webb University - Post Announcements</title>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed;
+       background-size: cover;
+     }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .submit-button {
+      text-align: center;
+    }
+
+    .submit-button button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Post Announcements</h1>
+  </div>
+  <div class="container">
+    <form id="announcements-form">
+      <div class="form-group">
+        <label for="announcement-note">Announcement Note</label>
+        <textarea id="announcement-note" name="announcement-note" placeholder="Enter the announcement"></textarea>
+      </div>
+      <div class="submit-button">
+        <button type="submit">Post Announcement</button>
+        <button class="back-button" onclick="goBack()">Back</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const announcementNote = document.getElementById("announcement-note").value;
+    document.addEventListener("DOMContentLoaded", function () {
+      const announcementsForm = document.getElementById("announcements-form");
+
+      announcementsForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        
+        const data = {
+          annoucementid: 0,  
+          annoucementnote: announcementNote
+        };
+        postAnnouncement(data);
+      });
+
+      function postAnnouncement(data) {
+
+        if (announcementNote == "") {
+          alert("Please Provide Details!");
+          return false;
+        }
+        else{
+        fetch("http://localhost:8080/sms/announcements/saveall", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify([data])
+        })
+          .then(response => {
+            if (response.ok) {
+              alert("Announcement has been posted successfully.");
+               announcementsForm.reset();
+            } else {
+              alert("Failed to post announcement.");
+            }
+          })
+          .catch(error => {
+            console.error("Error:", error);
+          });
+      }
+    }
+    });
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+
+</html>

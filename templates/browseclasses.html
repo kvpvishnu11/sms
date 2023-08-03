@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed; 
+      background-size: cover; 
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .dashboard {
+      width: 600px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+    }
+
+    .dashboard-heading {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .course-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .course-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .course-item:last-child {
+      border-bottom: none;
+    }
+
+    .course-name {
+      font-weight: bold;
+    }
+
+    .tabs {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .tabs button {
+      padding: 5px 10px;
+      background-color: #eee;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .tabs button.active {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .course-content,
+    .course-quizzes {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .course-content.active,
+    .course-quizzes.active {
+      display: block;
+    }
+
+    .content-item,
+    .quiz-item {
+      padding: 5px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .content-item:last-child,
+    .quiz-item:last-child {
+      border-bottom: none;
+    }
+
+    .quiz-question {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .quiz-option {
+      margin-left: 20px;
+    }
+  </style>
+ <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const sessData = JSON.parse(sessionStorage.getItem("userData"));
+    const studentIddata = JSON.stringify(sessData.studentid);
+    function fetchCourses() {
+      
+      const url = "http://localhost:8080/sms/enrollment/browse/"+studentIddata; 
+      console.log(url)
+;      fetch(url)
+        .then(response => response.json())
+        .then(courses => {
+          const courseList = document.querySelector(".course-list");
+          courseList.innerHTML = ""; 
+
+          if (courses.length === 0) {
+            const noCoursesMessage = document.createElement("li");
+            noCoursesMessage.textContent = "No courses are registered.";
+            courseList.appendChild(noCoursesMessage);
+          } else {
+            courses.forEach(course => {
+              const courseItem = document.createElement("li");
+              courseItem.className = "course-item";
+
+              const courseName = document.createElement("div");
+              courseName.className = "course-name";
+              courseName.textContent = `${course.coursename} (ID: ${course.courseid})`;
+              courseItem.appendChild(courseName);
+
+              const tabs = document.createElement("div");
+              tabs.className = "tabs";
+              courseItem.appendChild(tabs);
+
+              const viewContentTab = document.createElement("a");
+              viewContentTab.className = "view-content-tab active";
+              viewContentTab.textContent = "View Content";
+              viewContentTab.href = `viewcontent.html?courseid=${course.courseid}`;
+              viewContentTab.target = "_blank";
+              tabs.appendChild(viewContentTab);
+
+              const viewQuizzesTab = document.createElement("a");
+              viewQuizzesTab.className = "view-quizzes-tab";
+              viewQuizzesTab.textContent = "View Quizzes";
+              viewQuizzesTab.href = `viewquiz.html?courseid=${course.courseid}`;
+              viewQuizzesTab.target = "_blank";
+              tabs.appendChild(viewQuizzesTab);
+
+              const courseContent = document.createElement("div");
+              courseContent.className = "course-content active";
+              courseItem.appendChild(courseContent);
+
+              const courseQuizzes = document.createElement("div");
+              courseQuizzes.className = "course-quizzes";
+              courseItem.appendChild(courseQuizzes);
+
+              courseList.appendChild(courseItem);
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching courses:", error);
+        });
+    }
+
+    const courseItems = document.getElementsByClassName("course-item");
+
+    Array.from(courseItems).forEach(function(courseItem) {
+      const viewContentTab = courseItem.querySelector(".view-content-tab");
+      const viewQuizzesTab = courseItem.querySelector(".view-quizzes-tab");
+      const courseContent = courseItem.querySelector(".course-content");
+      const courseQuizzes = courseItem.querySelector(".course-quizzes");
+
+      viewContentTab.addEventListener("click", function() {
+        viewContentTab.classList.add("active");
+        viewQuizzesTab.classList.remove("active");
+        courseContent.classList.add("active");
+        courseQuizzes.classList.remove("active");
+      });
+
+      viewQuizzesTab.addEventListener("click", function() {
+        viewQuizzesTab.classList.add("active");
+        viewContentTab.classList.remove("active");
+        courseQuizzes.classList.add("active");
+        courseContent.classList.remove("active");
+      });
+    });
+    
+    fetchCourses();
+  });
+  function goBack() {
+      window.history.back();
+    }
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="dashboard">
+    <h2 class="dashboard-heading">Browse Registered Classes</h2>
+    <ul class="course-list">
+    </ul>
+    <button class="back-button" onclick="goBack()">Back</button>
+  </div>
+</div>
+</body>
+</html>

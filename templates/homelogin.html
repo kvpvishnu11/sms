@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  background-image: url('school2.jpeg');
+  background-attachment: fixed;  
+  background-size: cover;  
+}
+
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-form {
+      width: 400px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      padding: 10px 20px;
+      background-color: #eee;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .tabs button.active {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .login-button,
+    .signup-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .login-button button,
+    .signup-link a {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  const loginForm = document.getElementById("login-form");
+
+  loginForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const data = {
+      username: username,
+      password: password
+    };
+    loginUser(data);
+  });
+});
+
+
+   
+  function loginUser(data) {
+  fetch("http://localhost:8080/sms/userlogin/checkuser", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+       
+    } else {
+       alert("Please check your username and password.");
+      throw new Error("Invalid username or password");
+    }
+  })
+  .then(userData => {
+     
+    if ("role" in userData) {
+      if (userData.role === "admin") {
+        window.location.href = "jwadmin.html";
+        sessionStorage.setItem("userData", JSON.stringify(userData));
+        return;
+      }
+    }
+    
+     if ("userdata" in userData) {
+       if (userData.userdata.role === "teacher") {
+         if (userData.courseid !== 0) {
+          window.location.href = "jwteacher.html";
+          sessionStorage.setItem("userData", JSON.stringify(userData));
+        } else {
+          alert("No course has been linked to this Teacher account. Contact Admin for course mapping.");
+        }
+      } else if (userData.userdata.role === "student") {
+        window.location.href = "jwstudent.html";
+        sessionStorage.setItem("userData", JSON.stringify(userData));
+       
+      } else {
+        alert("Invalid user role");
+      }
+    } else {
+       window.location.href = "jwadmin.html";
+      sessionStorage.setItem("userData", JSON.stringify(userData));
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+  });
+}
+
+
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="login-form">
+      <div class="logo">
+        <img src="logo.png" alt="Logo">
+      </div>
+      <h1 class="heading">Member Login</h1>
+   
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password">
+        </div>
+        <div class="login-button">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <br/>
+      <div class="signup-link">
+        <a href="jwsignup.html">Sign up?</a>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

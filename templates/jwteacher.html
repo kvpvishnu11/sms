@@ -94,11 +94,11 @@
     <div class="sidebar">
       <div class="sidebar-header">
         <span>Hello, </span>
-        <span class="user-name">Teacherxx</span>
+        <span class="user-name" id="userDp">Teacherxx</span>
       </div>
       <ul class="sidebar-menu">
         <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Profile</a></li>
+        <li><a href="profile.html">Profile</a></li>
         <li><a href="#">Courses</a></li>
         <li><a href="#">Grades</a></li>
         <li><a href="#" onclick="logout()">Logout</a></li>
@@ -123,6 +123,7 @@
   </div>
 
    <script>
+     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     function goToAddContent() {
        var courseName = "Course XYZ";
 
@@ -132,9 +133,15 @@
 
        window.location.href = contentUrl;
     }
+    document.addEventListener("DOMContentLoaded", function () {
+      //var courseName = getParameterByName("course");
+      document.getElementById("userDp").textContent = sessData.userdata.firstname;
+    });
+
 
      function logout() {
        window.location.href = "homelogin.html";
+       sessionStorage.clear();
     }
   </script>
 </body>

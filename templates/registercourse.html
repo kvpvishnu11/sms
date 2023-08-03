@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>James Webb University</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed;
+      /* Keeps the background image fixed while content scrolls */
+      background-size: cover;
+      /* Adjusts the background image size to cover the entire body */
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .dashboard {
+      width: 800px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+    }
+
+    .dashboard-heading {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .refresh-button {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .refresh-button button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .submit-button button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .success-message {
+      text-align: center;
+      font-weight: bold;
+      font-size: 24px;
+      color: green;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="dashboard" id="dashboard">
+      <h2 class="dashboard-heading">Register for Classes</h2>
+      <div class="refresh-button">
+        <button id="refresh-button" onclick="refreshSeats()">Refresh</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Course Credits</th>
+            <th>Seats Available</th>
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody id="course-list">
+          <!-- Course items will be dynamically added here -->
+        </tbody>
+      </table>
+      <div class="submit-button">
+        <button id="submit-button" onclick="submitCourses()">Submit</button>
+        <button class="back-button" onclick="goBack()">Back</button>
+      </div>
+      <div id="success-message" class="success-message" style="display: none;"></div>
+    </div>
+    <div id="back-button" style="display: none; position: absolute; top: 20px; left: 20px;">
+      <button onclick="goBack()">Back</button>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Call your function after the DOM is loaded
+      displayData();
+    });
+    const sessData = JSON.parse(sessionStorage.getItem("userData"));
+    const courseReg = sessData.student_course_reg_status;
+    const submitButton = document.getElementById("submit-button");
+    const refreshButton = document.getElementById("refresh-button");
+    const successMessage = document.getElementById("success-message");
+
+    function displayData() {
+      if (courseReg === "true") {
+        // disableCourseSelection(true);
+        successMessage.textContent = "Registration has been done.";
+        successMessage.style.display = "block";
+        submitButton.style.display = "none";
+        refreshButton.style.display = "none";
+
+      } else {
+        disableCourseSelection(false);
+        successMessage.style.display = "none";
+        submitButton.style.display = "block";
+        refreshButton.style.display = "block";
+      }
+    }
+
+
+    function refreshSeats() {
+      // Fetch the data from the backend URL
+      fetch("http://localhost:8080/sms/course/getall")
+        .then((response) => response.json())
+        .then((data) => {
+          // Call the function to update the course list with the received data
+          updateCourseList(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching course data:", error);
+        });
+    }
+    const checkData = {
+      username: sessData.userdata.username,
+      password: sessData.userdata.password
+    };
+
+    function checkRegister(checkData) {
+
+
+      fetch("http://localhost:8080/sms/userlogin/checkuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(checkData)
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+            sessionStorage.clear();
+
+          } else {
+            // Display error message on failure
+
+          }
+        })
+        .then(userData => {
+          // Check if the response is for admin role     
+              sessionStorage.setItem("userData", JSON.stringify(userData));
+              return;
+        })
+      }
+
+      function updateCourseList(courses) {
+            // Get the course list element
+            const courseList = document.getElementById("course-list");
+            // Clear the existing course items
+            courseList.innerHTML = "";
+
+            // Loop through each course and create the course item dynamically
+            courses.forEach((course) => {
+              const courseRow = document.createElement("tr");
+
+              const courseNameCell = document.createElement("td");
+              courseNameCell.textContent = course.coursename;
+
+              const courseCreditsCell = document.createElement("td");
+              courseCreditsCell.textContent = course.coursecredits;
+
+              const seatsRemainingCell = document.createElement("td");
+              seatsRemainingCell.textContent = course.availableseats;
+
+              const selectCell = document.createElement("td");
+              const courseCheckbox = document.createElement("input");
+              courseCheckbox.type = "checkbox";
+              courseCheckbox.id = "course" + course.courseid;
+              courseCheckbox.name = "course" + course.courseid;
+              selectCell.appendChild(courseCheckbox);
+
+              courseRow.appendChild(courseNameCell);
+              courseRow.appendChild(courseCreditsCell);
+              courseRow.appendChild(seatsRemainingCell);
+              courseRow.appendChild(selectCell);
+
+              courseList.appendChild(courseRow);
+            });
+          }
+
+      function submitCourses() {
+            // Logic to retrieve the selected courses and perform further actions
+            const courseList = document.getElementById("course-list");
+            const courseRows = courseList.getElementsByTagName("tr");
+            const selectedCourses = [];
+
+            for (let i = 0; i < courseRows.length; i++) { // Change 'let i = 1' to 'let i = 0'
+              const courseRow = courseRows[i];
+              const courseId = courseRow.querySelector("input[type='checkbox']").id.replace("course", "");
+              const isChecked = courseRow.querySelector("input[type='checkbox']").checked;
+
+              if (isChecked) {
+                // Course is selected, add it to the selectedCourses array
+                const courseName = courseRow.querySelector("td:first-child").textContent;
+                selectedCourses.push({ courseid: courseId, coursename: courseName });
+              }
+            }
+
+            // Make the POST request to save the selected courses
+            const data = {
+              studentid: sessData.studentid,
+              courseList: selectedCourses,
+            };
+
+            fetch("http://localhost:8080/sms/enrollment/save", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => {
+                if (response.ok) {
+                  //showSuccessMessage("Registration Successful");
+                  successMessage.textContent = "Registration has been done.";
+                  successMessage.style.display = "block";
+                  submitButton.style.display = "none";
+                  refreshButton.style.display = "none";
+                  checkRegister(checkData);
+                } else {
+                  console.error("Registration failed. Please try again.");
+                }
+              })
+              .catch((error) => {
+                console.error("Error while registering courses:", error);
+              });
+          }
+
+      function showSuccessMessage(message) {
+            const successMessage = document.getElementById("success-message");
+            successMessage.textContent = message;
+            successMessage.style.display = "block";
+
+            // Disable the screen
+            const dashboard = document.getElementById("dashboard");
+            dashboard.style.pointerEvents = "none";
+            dashboard.style.opacity = 0.5;
+
+            // Show the back button
+            const backButton = document.getElementById("back-button");
+            backButton.style.display = "block";
+
+            setTimeout(() => {
+              successMessage.style.display = "none";
+              // Enable the screen after the message is hidden
+              dashboard.style.pointerEvents = "auto";
+              dashboard.style.opacity = 1;
+              // Hide the back button
+              backButton.style.display = "none";
+            }, 3000); // Hide the message after 3 seconds
+          }
+
+      function goBack() {
+            // Redirect to jwstudent.html
+            window.location.href = "jwstudent.html";
+          }
+
+      // Fetch the course data on page load
+
+      refreshSeats();
+      displayData();
+  </script>
+</body>
+
+</html>

@@ -98,6 +98,7 @@
     }
   </style>
   <script>
+     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     document.addEventListener("DOMContentLoaded", function () {
       const logoutLink = document.getElementById("logout-link");
       const announcementsTile = document.getElementById("announcements-tile");
@@ -112,6 +113,10 @@
         window.location.href = "announcements.html";
       });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+      //var courseName = getParameterByName("course");
+      document.getElementById("userDp").textContent = sessData.userdata.firstname;
+    });
   </script>
 </head>
 <body>
@@ -119,11 +124,11 @@
     <div class="sidebar">
       <div class="sidebar-header">
         <span>Hello, </span>
-        <span class="user-name">Userxx</span>
+        <span class="user-name" id="userDp">Userxx</span>
       </div>
       <ul class="sidebar-menu">
         <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Profile</a></li>
+        <li><a href="profile.html">Profile</a></li>
         <li><a href="#">Grades</a></li>
         <li><a href="#">Payments</a></li>
         <li><a href="#" id="logout-link">Logout</a></li>

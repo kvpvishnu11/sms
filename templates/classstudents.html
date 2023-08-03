@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>James Webb University - Class Students</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed; 
+      background-size: cover; 
+    }
+
+    .classstudents-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+    }
+
+    .classstudents-container h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .course-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .students-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .students-table th,
+    .students-table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .students-table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    .students-table {
+      margin-top: 20px;
+    }
+
+    .back-button {
+      margin-top: 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="classstudents-container">
+    <h1>Class Students</h1>
+    <div class="course-title">
+      <strong>Course Title:</strong>
+      <span id="courseTitle">Sample Course</span>
+    </div>
+    <table class="students-table" id="studentsTable">
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <button class="back-button" onclick="goBack()">Back</button>
+  </div>
+
+  <script>
+    const sessData = JSON.parse(sessionStorage.getItem("userData"));
+    function getParameterByName(name) {
+      var url = new URL(window.location.href);
+      return decodeURIComponent(url.searchParams.get(name));
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var courseTitle = getParameterByName("course");
+      document.getElementById("courseTitle").textContent = sessData.teachingcourse;
+
+      fetchStudentsData();
+    });
+
+    function fetchStudentsData() {
+      
+    
+      var courseId = sessData.courseid; 
+      var studentsTable = document.getElementById("studentsTable");
+
+      fetch(`http://localhost:8080/sms/teacher/fetchstudents/${courseId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          var studentsData = data; 
+          var tbody = studentsTable.getElementsByTagName("tbody")[0];
+          tbody.innerHTML = ""; 
+          studentsData.forEach((student) => {
+            var row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${student.studentid}</td>
+              <td>${student.firstname}</td>
+              <td>${student.lastname}</td>
+            `;
+            tbody.appendChild(row);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching students data:", error);
+        });
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

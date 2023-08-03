@@ -3,15 +3,14 @@
 <head>
   <title>James Webb University - View Quiz</title>
   <style>
-    /* Inline CSS styles for consistency */
-    body {
+     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
-      background-attachment: fixed; /* Keeps the background image fixed while content scrolls */
-      background-size: cover; /* Adjusts the background image size to cover the entire body */
-    }
+      background-attachment: fixed; 
+       background-size: cover; 
+     }
 
     .container {
       display: flex;
@@ -70,16 +69,14 @@
     <div class="dashboard">
       <h2 class="dashboard-heading">Quiz</h2>
       <div id="quizContent">
-        <!-- Quiz content will be dynamically generated here -->
-      </div>
+       </div>
       <button class="submit-quiz-btn" id="submitQuizBtn">Submit Quiz</button>
     </div>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Function to fetch and display quiz data for a specific course
-      function fetchQuizData() {
+       function fetchQuizData() {
         const urlParams = new URLSearchParams(window.location.search);
         const courseId = urlParams.get('courseid');
 
@@ -88,8 +85,8 @@
           .then(response => response.json())
           .then(quizData => {
             const quizContent = document.getElementById("quizContent");
-            quizContent.innerHTML = ""; // Clear existing content
-
+            quizContent.innerHTML = ""; 
+ 
             if (quizData.length === 0) {
               const noQuizMessage = document.createElement("p");
               noQuizMessage.textContent = "No quiz available for this course.";
@@ -153,17 +150,13 @@
           });
       }
 
-      // Call the fetchQuizData function to populate the quiz content
-      fetchQuizData();
+       fetchQuizData();
 
-      // Submit Quiz button click event listener
-      const submitQuizBtn = document.getElementById("submitQuizBtn");
+       const submitQuizBtn = document.getElementById("submitQuizBtn");
       submitQuizBtn.addEventListener("click", function() {
-        // Your code to handle the quiz submission here
-        // For example, you can get the selected option using:
+         
         const selectedOption = document.querySelector('input[name="quizOption"]:checked').value;
-        // Then you can process the answer and perform further actions as needed.
-      });
+       });
     });
   </script>
 </body>

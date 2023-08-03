@@ -4,18 +4,15 @@
 <head>
   <title>James Webb University - Add Quizzes</title>
   <style>
-    /* CSS styles (your existing CSS styles here) */
-    /* ... */
+    
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
       background-attachment: fixed;
-      /* Keeps the background image fixed while content scrolls */
-      background-size: cover;
-      /* Adjusts the background image size to cover the entire body */
-    }
+       background-size: cover;
+     }
 
     .quiz-container {
       max-width: 800px;
@@ -95,8 +92,7 @@
       margin-bottom: 20px;
     }
 
-    /* Additional styling to match content.html */
-    .question-item {
+     .question-item {
       background-color: #f2f2f2;
       padding: 15px;
       border-radius: 10px;
@@ -121,7 +117,6 @@
       background-color: #444;
     }
 
-    /* Style for the "Submit Quiz" button */
     .quiz-questions button {
       margin-top: 20px;
       background-color: #333;
@@ -169,7 +164,6 @@
     </div>
   </div>
   <script>
-    // JavaScript to extract course name from URL query parameter and display it
     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     function getParameterByName(name) {
       var url = new URL(window.location.href);
@@ -177,29 +171,24 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-      //var courseName = getParameterByName("course");
       document.getElementById("courseName").textContent = sessData.teachingcourse;
     });
 
     var questionCounter = 0;
 
-    // JavaScript to add quiz questions
     function addQuestion() {
 
       var questionsList = document.getElementById("questionsList");
 
-      // Create the question item container
       var questionItem = document.createElement("div");
       questionItem.classList.add("question-item");
 
-      // Create the question input field
       var questionInput = document.createElement("input");
       questionInput.type = "text";
       questionInput.placeholder = "Enter the question...";
       questionInput.classList.add("questionTitle");
       questionItem.appendChild(questionInput);
 
-      // Create the option input fields
       for (var i = 1; i <= 4; i++) {
         var optionInput = document.createElement("input");
         optionInput.type = "text";
@@ -207,7 +196,6 @@
         questionItem.appendChild(optionInput);
       }
 
-      // Create the correct answer select dropdown
       var correctAnswerSelect = document.createElement("select");
       for (var i = 1; i <= 4; i++) {
         var option = document.createElement("option");
@@ -217,17 +205,15 @@
         var deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", function () {
-          deleteQuestion(questionItem); // Call deleteQuestion() with the current question item as an argument
+          deleteQuestion(questionItem); 
         });
       }
       questionItem.appendChild(correctAnswerSelect);
 
       questionItem.appendChild(deleteButton);
 
-      // Add the question item to the questions list
       questionsList.appendChild(questionItem);
 
-      // Increment the question counter
       questionCounter++;
     }
     function deleteQuestion(questionItem) {
@@ -261,15 +247,14 @@
       var questionInput = document.getElementsByClassName("questionTitle");
       if (questionInput.value == "") {
         alert("Please enter a question title before adding the question.");
-        return; // Prevent further execution of the function
+        return; 
       }
 
       if (questionItems.length == 0) {
         alert("Please add at least one question before submitting the quiz.");
-        return; // Prevent further execution of the function
+        return; 
       }
       else {
-        // Loop through each question item and collect the data
         for (var i = 0; i < questionItems.length; i++) {
           var questionItem = questionItems[i];
           var questionInput = questionItem.getElementsByTagName("input")[0];
@@ -281,9 +266,8 @@
           for (var j = 0; j < optionInputs.length; j++) {
             options.push(optionInputs[j].value);
           }
-          var correctAnswer = options[correctAnswerSelect.selectedIndex]; // Get the text of the selected option
+          var correctAnswer = options[correctAnswerSelect.selectedIndex]; 
 
-          // Create the question object
           var questionObject = {
             "question": question,
             "option1": options[0],
@@ -291,27 +275,22 @@
             "option3": options[2],
             "option4": options[3],
             "rightanswer": correctAnswer,
-            "courseid": sessData.courseid // Replace with the actual course id dynamically
+            "courseid": sessData.courseid 
           };
 
           quizData.push(questionObject);
         }
 
-        // Send the quiz data to the server via POST request
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:8080/sms/quiz/savenewquiz", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-              // Success
-              // Clear the questions list after successful submission
               questionsList.innerHTML = "";
               questionCounter = 0;
-              // Display success message
               alert("Quiz has been posted.");
             } else {
-              // Error handling
               alert("Error while submitting the quiz. Please try again later.");
             }
           }

@@ -4,17 +4,14 @@
 <head>
   <title>James Webb University</title>
   <style>
-    /* CSS styles */
-    body {
+     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
       background-attachment: fixed;
-      /* Keeps the background image fixed while content scrolls */
-      background-size: cover;
-      /* Adjusts the background image size to cover the entire body */
-    }
+       background-size: cover;
+     }
 
     .container {
       display: flex;
@@ -109,8 +106,7 @@
           </tr>
         </thead>
         <tbody id="course-list">
-          <!-- Course items will be dynamically added here -->
-        </tbody>
+         </tbody>
       </table>
       <div class="submit-button">
         <button id="submit-button" onclick="submitCourses()">Submit</button>
@@ -124,8 +120,7 @@
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Call your function after the DOM is loaded
-      displayData();
+       displayData();
     });
     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     const courseReg = sessData.student_course_reg_status;
@@ -135,8 +130,7 @@
 
     function displayData() {
       if (courseReg === "true") {
-        // disableCourseSelection(true);
-        successMessage.textContent = "Registration has been done.";
+         successMessage.textContent = "Registration has been done.";
         successMessage.style.display = "block";
         submitButton.style.display = "none";
         refreshButton.style.display = "none";
@@ -151,12 +145,10 @@
 
 
     function refreshSeats() {
-      // Fetch the data from the backend URL
-      fetch("http://localhost:8080/sms/course/getall")
+       fetch("http://localhost:8080/sms/course/getall")
         .then((response) => response.json())
         .then((data) => {
-          // Call the function to update the course list with the received data
-          updateCourseList(data);
+           updateCourseList(data);
         })
         .catch((error) => {
           console.error("Error fetching course data:", error);
@@ -183,25 +175,20 @@
             sessionStorage.clear();
 
           } else {
-            // Display error message on failure
-
+ 
           }
         })
         .then(userData => {
-          // Check if the response is for admin role     
-              sessionStorage.setItem("userData", JSON.stringify(userData));
+               sessionStorage.setItem("userData", JSON.stringify(userData));
               return;
         })
       }
 
       function updateCourseList(courses) {
-            // Get the course list element
-            const courseList = document.getElementById("course-list");
-            // Clear the existing course items
-            courseList.innerHTML = "";
+             const courseList = document.getElementById("course-list");
+             courseList.innerHTML = "";
 
-            // Loop through each course and create the course item dynamically
-            courses.forEach((course) => {
+             courses.forEach((course) => {
               const courseRow = document.createElement("tr");
 
               const courseNameCell = document.createElement("td");
@@ -230,25 +217,23 @@
           }
 
       function submitCourses() {
-            // Logic to retrieve the selected courses and perform further actions
-            const courseList = document.getElementById("course-list");
+             const courseList = document.getElementById("course-list");
             const courseRows = courseList.getElementsByTagName("tr");
             const selectedCourses = [];
 
-            for (let i = 0; i < courseRows.length; i++) { // Change 'let i = 1' to 'let i = 0'
-              const courseRow = courseRows[i];
+            for (let i = 0; i < courseRows.length; i++) { 
+               const courseRow = courseRows[i];
               const courseId = courseRow.querySelector("input[type='checkbox']").id.replace("course", "");
               const isChecked = courseRow.querySelector("input[type='checkbox']").checked;
 
               if (isChecked) {
-                // Course is selected, add it to the selectedCourses array
+
                 const courseName = courseRow.querySelector("td:first-child").textContent;
                 selectedCourses.push({ courseid: courseId, coursename: courseName });
               }
             }
 
-            // Make the POST request to save the selected courses
-            const data = {
+             const data = {
               studentid: sessData.studentid,
               courseList: selectedCourses,
             };
@@ -262,8 +247,7 @@
             })
               .then((response) => {
                 if (response.ok) {
-                  //showSuccessMessage("Registration Successful");
-                  successMessage.textContent = "Registration has been done.";
+                   successMessage.textContent = "Registration has been done.";
                   successMessage.style.display = "block";
                   submitButton.style.display = "none";
                   refreshButton.style.display = "none";
@@ -282,32 +266,28 @@
             successMessage.textContent = message;
             successMessage.style.display = "block";
 
-            // Disable the screen
-            const dashboard = document.getElementById("dashboard");
+             const dashboard = document.getElementById("dashboard");
             dashboard.style.pointerEvents = "none";
             dashboard.style.opacity = 0.5;
 
-            // Show the back button
-            const backButton = document.getElementById("back-button");
+             const backButton = document.getElementById("back-button");
             backButton.style.display = "block";
 
             setTimeout(() => {
               successMessage.style.display = "none";
-              // Enable the screen after the message is hidden
-              dashboard.style.pointerEvents = "auto";
+               dashboard.style.pointerEvents = "auto";
               dashboard.style.opacity = 1;
-              // Hide the back button
-              backButton.style.display = "none";
-            }, 3000); // Hide the message after 3 seconds
-          }
+               backButton.style.display = "none";
+            }, 3000); 
+           }
 
       function goBack() {
-            // Redirect to jwstudent.html
-            window.location.href = "jwstudent.html";
+
+        window.location.href = "jwstudent.html";
           }
 
-      // Fetch the course data on page load
 
+          
       refreshSeats();
       displayData();
   </script>

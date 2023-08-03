@@ -3,14 +3,13 @@
 <head>
   <title>James Webb University - View Content</title>
   <style>
-    /* Inline CSS styles for consistency */
-    body {
+     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
-      background-attachment: fixed; /* Keeps the background image fixed while content scrolls */
-      background-size: cover; /* Adjusts the background image size to cover the entire body */
+      background-attachment: fixed; 
+       background-size: cover; 
     }
 
     .container {
@@ -79,15 +78,13 @@
     <div class="dashboard">
       <h2 class="dashboard-heading">Course Content</h2>
       <ul class="course-content-list" id="courseContentList">
-        <!-- Course content will be dynamically generated here -->
-      </ul>
+       </ul>
     </div>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Function to fetch and display course content for a specific course
-      function fetchCourseContent() {
+       function fetchCourseContent() {
         const urlParams = new URLSearchParams(window.location.search);
         const courseId = urlParams.get('courseid');
 
@@ -96,8 +93,7 @@
           .then(response => response.json())
           .then(courseMaterials => {
             const courseContentList = document.getElementById("courseContentList");
-            courseContentList.innerHTML = ""; // Clear existing content
-
+            courseContentList.innerHTML = "";  
             if (courseMaterials.length === 0) {
               const noContentMessage = document.createElement("li");
               noContentMessage.textContent = "No course content available.";
@@ -138,8 +134,7 @@
           });
       }
 
-      // Call the fetchCourseContent function to populate the course content
-      fetchCourseContent();
+       fetchCourseContent();
     });
   </script>
 </body>

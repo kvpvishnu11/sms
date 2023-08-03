@@ -4,16 +4,13 @@
 <head>
   <title>James Webb University - Add Content</title>
   <style>
-    /* CSS styles */
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
       background-attachment: fixed;
-      /* Keeps the background image fixed while content scrolls */
       background-size: cover;
-      /* Adjusts the background image size to cover the entire body */
     }
 
     .content-container {
@@ -84,7 +81,6 @@
   </div>
 
   <script>
-    // JavaScript to extract course name from URL query parameter and display it
     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     function getParameterByName(name) {
       var url = new URL(window.location.href);
@@ -96,16 +92,14 @@
       document.getElementById("courseName").textContent = sessData.teachingcourse;
     });
 
-    // JavaScript to save content notes using AJAX POST request
     function saveContent() {
       var courseName = getParameterByName("course");
       var notes = document.getElementById("notes").value;
       console.log(notes);
 
-      // Construct the request data object
       var requestData = {
-        url: notes, // For this example, we'll use the 'notes' value as the URL
-        courseid: sessData.courseid // Replace this with the actual course ID if available
+        url: notes, 
+        courseid: sessData.courseid 
       };
 
       if (notes == "") {
@@ -113,7 +107,6 @@
         return false;
       }
       else {
-        // Send the AJAX POST request using the fetch API
         fetch("http://localhost:8080/sms/coursematerial/savematerial", {
           method: "POST",
           headers: {
@@ -129,12 +122,10 @@
             }
           })
           .then(function (data) {
-            // Handle the successful response here, e.g., display success message and reset the form
             alert("Content has been posted!");
             document.getElementById("notes").value = "";
           })
           .catch(function (error) {
-            // Handle errors here, e.g., display error message
             console.error("Error: ", error);
           });
       }

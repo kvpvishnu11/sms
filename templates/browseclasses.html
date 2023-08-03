@@ -9,8 +9,8 @@
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
-      background-attachment: fixed; /* Keeps the background image fixed while content scrolls */
-      background-size: cover; /* Adjusts the background image size to cover the entire body */
+      background-attachment: fixed; 
+      background-size: cover; 
     }
 
     .container {
@@ -107,7 +107,6 @@
   document.addEventListener("DOMContentLoaded", function() {
     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     const studentIddata = JSON.stringify(sessData.studentid);
-    // Function to fetch and display the courses from the API
     function fetchCourses() {
       
       const url = "http://localhost:8080/sms/enrollment/browse/"+studentIddata; 
@@ -116,7 +115,7 @@
         .then(response => response.json())
         .then(courses => {
           const courseList = document.querySelector(".course-list");
-          courseList.innerHTML = ""; // Clear existing courses
+          courseList.innerHTML = ""; 
 
           if (courses.length === 0) {
             const noCoursesMessage = document.createElement("li");
@@ -167,7 +166,6 @@
         });
     }
 
-    // Existing code (with modifications for tab switching)
     const courseItems = document.getElementsByClassName("course-item");
 
     Array.from(courseItems).forEach(function(courseItem) {
@@ -191,7 +189,6 @@
       });
     });
     
-    // Call the fetchCourses function to populate the course list
     fetchCourses();
   });
   function goBack() {
@@ -204,7 +201,6 @@
   <div class="dashboard">
     <h2 class="dashboard-heading">Browse Registered Classes</h2>
     <ul class="course-list">
-      <!-- Courses will be dynamically generated here -->
     </ul>
     <button class="back-button" onclick="goBack()">Back</button>
   </div>

@@ -3,8 +3,7 @@
 <head>
   <title>James Webb University - Admin Dashboard</title>
   <style>
-    /* CSS styles */
-    body {
+     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
@@ -123,8 +122,7 @@
 <script>
    const sessData = JSON.parse(sessionStorage.getItem("userData"));
    document.addEventListener("DOMContentLoaded", function () {
-      //var courseName = getParameterByName("course");
-      document.getElementById("userDp").textContent = sessData.userdata.firstname;
+       document.getElementById("userDp").textContent = sessData.userdata.firstname;
     });
    function logout() {
        window.location.href = "homelogin.html";

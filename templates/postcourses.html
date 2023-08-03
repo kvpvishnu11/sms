@@ -3,14 +3,13 @@
 <head>
   <title>James Webb University - Add Courses</title>
   <style>
-    /* CSS styles */
-    body {
+     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
-      background-attachment: fixed; /* Keeps the background image fixed while content scrolls */
-      background-size: cover; /* Adjusts the background image size to cover the entire body */
+      background-attachment: fixed; 
+       background-size: cover; 
     }
 
     .container {
@@ -85,8 +84,7 @@
       font-weight: bold;
     }
 
-    /* Horizontal table layout */
-    .course-table {
+     .course-table {
       width: 100%;
       border-collapse: collapse;
     }
@@ -108,8 +106,7 @@
     }
   </style>
   <script>
-    // JavaScript code
-    let teachersData = [];
+     let teachersData = [];
 
     async function fetchTeachers() {
       const response = await fetch("http://localhost:8080/sms/teacher/getall");
@@ -240,9 +237,9 @@
         .then(response => {
           if (response.ok) {
             alert("Courses added successfully!");
-            courseTable.innerHTML = ""; // Clear the table to remove added course fields
-            addCourseField(); // Add the initial course field back
-          } else {
+            courseTable.innerHTML = ""; 
+             addCourseField(); 
+           } else {
             alert("Failed to add the courses. Please try again.");
           }
         })

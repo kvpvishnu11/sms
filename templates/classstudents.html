@@ -3,15 +3,13 @@
 <head>
   <title>James Webb University - Class Students</title>
   <style>
-    /* CSS styles (your existing CSS styles here) */
-    /* ... */
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
-      background-attachment: fixed; /* Keeps the background image fixed while content scrolls */
-      background-size: cover; /* Adjusts the background image size to cover the entire body */
+      background-attachment: fixed; 
+      background-size: cover; 
     }
 
     .classstudents-container {
@@ -51,12 +49,10 @@
       font-weight: bold;
     }
 
-    /* Additional styling to match content.html */
     .students-table {
       margin-top: 20px;
     }
 
-    /* Style for the "Back" button */
     .back-button {
       margin-top: 20px;
       background-color: #333;
@@ -89,14 +85,12 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Student data will be added here dynamically -->
       </tbody>
     </table>
     <button class="back-button" onclick="goBack()">Back</button>
   </div>
 
   <script>
-    // JavaScript to extract course name from URL query parameter and display it
     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     function getParameterByName(name) {
       var url = new URL(window.location.href);
@@ -107,26 +101,21 @@
       var courseTitle = getParameterByName("course");
       document.getElementById("courseTitle").textContent = sessData.teachingcourse;
 
-      // Fetch students data
       fetchStudentsData();
     });
 
-    // JavaScript to fetch students data from the server
     function fetchStudentsData() {
       
     
-      var courseId = sessData.courseid; // Replace with the actual course id dynamically
+      var courseId = sessData.courseid; 
       var studentsTable = document.getElementById("studentsTable");
 
-      // Fetch students data via GET request
       fetch(`http://localhost:8080/sms/teacher/fetchstudents/${courseId}`)
         .then((response) => response.json())
         .then((data) => {
-          var studentsData = data; // Replace 'data' with the actual response data from the server
+          var studentsData = data; 
           var tbody = studentsTable.getElementsByTagName("tbody")[0];
-          tbody.innerHTML = ""; // Clear existing data
-
-          // Populate the table with student data
+          tbody.innerHTML = ""; 
           studentsData.forEach((student) => {
             var row = document.createElement("tr");
             row.innerHTML = `
@@ -142,7 +131,6 @@
         });
     }
 
-    // JavaScript to go back to the previous page
     function goBack() {
       window.history.back();
     }

@@ -33,6 +33,15 @@ public class CourseMaterial {
 	public void setCourseid(long courseid) {
 		this.courseid = courseid;
 	}
+	public CourseMaterial(long coursematerialid, String url, long courseid) {
+		super();
+		this.coursematerialid = coursematerialid;
+		this.url = url;
+		this.courseid = courseid;
+	}
+	public CourseMaterial() {
+		super();
+	}
 	
 	
 

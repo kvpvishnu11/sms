@@ -39,5 +39,16 @@ public class Enrollment {
 	public void setCourseid(long courseid) {
 		this.courseid = courseid;
 	}
+	public Enrollment(long enrollmentid, long studentid, long courseid, String coursename) {
+		super();
+		this.enrollmentid = enrollmentid;
+		this.studentid = studentid;
+		this.courseid = courseid;
+		this.coursename = coursename;
+	}
+	public Enrollment() {
+		super();
+	}
+	
 
 }

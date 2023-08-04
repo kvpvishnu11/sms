@@ -24,5 +24,13 @@ public class Teacher {
 	public void setUserid(long userid) {
 		this.userid = userid;
 	}
+	public Teacher(long teacherid, long userid) {
+		super();
+		this.teacherid = teacherid;
+		this.userid = userid;
+	}
+	public Teacher() {
+		super();
+	}
 	
 }

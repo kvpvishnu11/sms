@@ -45,6 +45,17 @@ public class Course {
 	public void setTeacherid(long teacherid) {
 		this.teacherid = teacherid;
 	}
+	public Course(Long courseid, String coursename, String coursecredits, int availableseats, long teacherid) {
+		super();
+		this.courseid = courseid;
+		this.coursename = coursename;
+		this.coursecredits = coursecredits;
+		this.availableseats = availableseats;
+		this.teacherid = teacherid;
+	}
+	public Course() {
+		super();
+	}
 	
 	
 }

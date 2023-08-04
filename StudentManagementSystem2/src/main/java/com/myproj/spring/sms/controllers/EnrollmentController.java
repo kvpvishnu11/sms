@@ -31,6 +31,7 @@ public class EnrollmentController {
 		
 	}
 	
+	// Browsing the courses using the student id
 	 
 	@GetMapping("/browse/{student_id}")
 	public List<BrowseCoursesDTO> browseEnrollments(@PathVariable("student_id") long student_id) {

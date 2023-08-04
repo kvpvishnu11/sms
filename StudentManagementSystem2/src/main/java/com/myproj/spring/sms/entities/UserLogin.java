@@ -22,6 +22,24 @@ public class UserLogin {
 	private String role;
 	
 	
+	
+	public UserLogin(long userid, String username, String password, String firstname, String lastname, String phoneno,
+			String email, String role) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.phoneno = phoneno;
+		this.email = email;
+		this.role = role;
+	}
+	
+	public UserLogin() {
+		super();
+	}
+
 	public String getRole() {
 		return role;
 	}

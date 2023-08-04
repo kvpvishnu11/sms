@@ -23,6 +23,14 @@ public class Student {
 	public void setUserid(long userid) {
 		this.userid = userid;
 	}
+	public Student(long studentid, long userid) {
+		super();
+		this.studentid = studentid;
+		this.userid = userid;
+	}
+	public Student() {
+		super();
+	}
 	
 	
 

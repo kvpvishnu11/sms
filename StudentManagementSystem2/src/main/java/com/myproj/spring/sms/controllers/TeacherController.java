@@ -27,7 +27,7 @@ public class TeacherController {
 	}
 	
 	@GetMapping("/getall")
-	public List<TeacherListDTOImpl> displayListOfStudentsFromTeacherID(){
+	public List<TeacherListDTOImpl> displayAllTeachers(){
 		
 		return teacherService.listAllTeachers();
 	}

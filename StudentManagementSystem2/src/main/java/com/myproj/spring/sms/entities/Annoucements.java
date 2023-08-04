@@ -24,5 +24,15 @@ public class Annoucements {
 	public void setAnnoucementnote(String annoucementnote) {
 		this.annoucementnote = annoucementnote;
 	}
+	public Annoucements(long annoucementid, String annoucementnote) {
+		super();
+		this.annoucementid = annoucementid;
+		this.annoucementnote = annoucementnote;
+	}
+	public Annoucements() {
+		super();
+	}
+	
+	
 	
 }

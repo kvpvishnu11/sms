@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 
 <head>
   <title>James Webb University - Add Quizzes</title>
   <style>
-    
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
       background-attachment: fixed;
-       background-size: cover;
-     }
+      background-size: cover;
+    }
 
     .quiz-container {
       max-width: 800px;
@@ -92,7 +93,7 @@
       margin-bottom: 20px;
     }
 
-     .question-item {
+    .question-item {
       background-color: #f2f2f2;
       padding: 15px;
       border-radius: 10px;
@@ -176,6 +177,9 @@
 
     var questionCounter = 0;
 
+    // Adding a new question
+    // Append a new record every time user clicks add a new question
+
     function addQuestion() {
 
       var questionsList = document.getElementById("questionsList");
@@ -205,7 +209,7 @@
         var deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", function () {
-          deleteQuestion(questionItem); 
+          deleteQuestion(questionItem);
         });
       }
       questionItem.appendChild(correctAnswerSelect);
@@ -220,6 +224,9 @@
       var questionsList = document.getElementById("questionsList");
       questionsList.removeChild(questionItem);
     }
+
+    // When User clicks delete old quizzes, we are deleting old quizzes existing in that course
+    // Making a Delete api call to back end here
     function deleteQuiz() {
 
 
@@ -239,7 +246,7 @@
 
     }
 
-    // JavaScript to submit the quiz
+    // Post API call on submit of the quiz has been done here
     function submitQuiz() {
       var questionsList = document.getElementById("questionsList");
       var questionItems = questionsList.getElementsByClassName("question-item");
@@ -247,12 +254,12 @@
       var questionInput = document.getElementsByClassName("questionTitle");
       if (questionInput.value == "") {
         alert("Please enter a question title before adding the question.");
-        return; 
+        return;
       }
 
       if (questionItems.length == 0) {
         alert("Please add at least one question before submitting the quiz.");
-        return; 
+        return;
       }
       else {
         for (var i = 0; i < questionItems.length; i++) {
@@ -266,7 +273,7 @@
           for (var j = 0; j < optionInputs.length; j++) {
             options.push(optionInputs[j].value);
           }
-          var correctAnswer = options[correctAnswerSelect.selectedIndex]; 
+          var correctAnswer = options[correctAnswerSelect.selectedIndex];
 
           var questionObject = {
             "question": question,
@@ -275,7 +282,7 @@
             "option3": options[2],
             "option4": options[3],
             "rightanswer": correctAnswer,
-            "courseid": sessData.courseid 
+            "courseid": sessData.courseid
           };
 
           quizData.push(questionObject);

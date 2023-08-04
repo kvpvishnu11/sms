@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University</title>
   <style>
     body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  margin: 0;
-  background-image: url('school2.jpeg');
-  background-attachment: fixed;  
-  background-size: cover;  
-}
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      background-image: url('school2.jpeg');
+      background-attachment: fixed;
+      background-size: cover;
+    }
 
 
     .container {
@@ -101,79 +103,81 @@
       text-decoration: none;
     }
   </style>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-  const loginForm = document.getElementById("login-form");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginForm = document.getElementById("login-form");
 
-  loginForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const data = {
-      username: username,
-      password: password
-    };
-    loginUser(data);
-  });
-});
+      loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const data = {
+          username: username,
+          password: password
+        };
+        loginUser(data);
+      });
+    });
 
+    // Made a Post API call to check if the logged user is present in back end DB
+    // Handled logics for Student login, Admin Login and Teacher Login
 
-   
-  function loginUser(data) {
-  fetch("http://localhost:8080/sms/userlogin/checkuser", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-       
-    } else {
-       alert("Please check your username and password.");
-      throw new Error("Invalid username or password");
+    function loginUser(data) {
+      fetch("http://localhost:8080/sms/userlogin/checkuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+
+          } else {
+            alert("Please check your username and password.");
+            throw new Error("Invalid username or password");
+          }
+        })
+        .then(userData => {
+
+          if ("role" in userData) {
+            if (userData.role === "admin") {
+              window.location.href = "jwadmin.html";
+              sessionStorage.setItem("userData", JSON.stringify(userData));
+              return;
+            }
+          }
+
+          if ("userdata" in userData) {
+            if (userData.userdata.role === "teacher") {
+              if (userData.courseid !== 0) {
+                window.location.href = "jwteacher.html";
+                sessionStorage.setItem("userData", JSON.stringify(userData));
+              } else {
+                alert("No course has been linked to this Teacher account. Contact Admin for course mapping.");
+              }
+            } else if (userData.userdata.role === "student") {
+              window.location.href = "jwstudent.html";
+              sessionStorage.setItem("userData", JSON.stringify(userData));
+
+            } else {
+              alert("Invalid user role");
+            }
+          } else {
+            window.location.href = "jwadmin.html";
+            sessionStorage.setItem("userData", JSON.stringify(userData));
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
     }
-  })
-  .then(userData => {
-     
-    if ("role" in userData) {
-      if (userData.role === "admin") {
-        window.location.href = "jwadmin.html";
-        sessionStorage.setItem("userData", JSON.stringify(userData));
-        return;
-      }
-    }
-    
-     if ("userdata" in userData) {
-       if (userData.userdata.role === "teacher") {
-         if (userData.courseid !== 0) {
-          window.location.href = "jwteacher.html";
-          sessionStorage.setItem("userData", JSON.stringify(userData));
-        } else {
-          alert("No course has been linked to this Teacher account. Contact Admin for course mapping.");
-        }
-      } else if (userData.userdata.role === "student") {
-        window.location.href = "jwstudent.html";
-        sessionStorage.setItem("userData", JSON.stringify(userData));
-       
-      } else {
-        alert("Invalid user role");
-      }
-    } else {
-       window.location.href = "jwadmin.html";
-      sessionStorage.setItem("userData", JSON.stringify(userData));
-    }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
-}
 
 
-</script>
+  </script>
 </head>
+
 <body>
   <div class="container">
     <div class="login-form">
@@ -181,7 +185,7 @@
         <img src="logo.png" alt="Logo">
       </div>
       <h1 class="heading">Member Login</h1>
-   
+
       <form id="login-form">
         <div class="form-group">
           <label for="username">Username</label>
@@ -195,12 +199,13 @@
           <button type="submit">Login</button>
         </div>
       </form>
-      <br/>
+      <br />
       <div class="signup-link">
-        <a href="jwsignup.html">Sign up?</a>
+        <a href="jwsignup.html">Sign up</a>
       </div>
     </div>
   </div>
-  
+
 </body>
+
 </html>

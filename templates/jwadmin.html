@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - Admin Dashboard</title>
+
+
   <style>
      body {
       font-family: Arial, sans-serif;
@@ -89,6 +93,8 @@
   </style>
 </head>
 <body>
+ 
+
   <div class="dashboard-container">
     <div class="sidebar">
       <div class="sidebar-header">
@@ -98,8 +104,8 @@
       <ul class="sidebar-menu">
         <li><a href="#">Dashboard</a></li>
         <li><a href="profile.html">Profile</a></li>
-        <li><a href="#">Courses</a></li>
-        <li><a href="#">Grades</a></li>
+        
+       
         <li><a href="#" onclick="logout()">Logout</a></li>
       </ul>
     </div>
@@ -120,6 +126,7 @@
   </div>
 </body>
 <script>
+  // Getting session data to display hello xxx name fields
    const sessData = JSON.parse(sessionStorage.getItem("userData"));
    document.addEventListener("DOMContentLoaded", function () {
        document.getElementById("userDp").textContent = sessData.userdata.firstname;

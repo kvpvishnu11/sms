@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - View Content</title>
   <style>
@@ -87,6 +89,8 @@
        function fetchCourseContent() {
         const urlParams = new URLSearchParams(window.location.search);
         const courseId = urlParams.get('courseid');
+
+        // GET call has been made to view the content in a particular course 
 
         const url = `http://localhost:8080/sms/coursematerial/getcontent/${courseId}`;
         fetch(url)

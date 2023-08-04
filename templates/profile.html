@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!--  Profile reffered from the bootstrap template --> >
+
+<!--  Modified according to our own API calls --> >
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +38,7 @@
             <button class="back-button btn btn-secondary" onclick="goBack()">Back</button>
             <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
             <button type="button" class="btn btn-success" onclick="updateProfile()">Update Profile</button>
-            
+
         </div>
     </div>
 
@@ -49,11 +53,11 @@
     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     let userName;
     if (sessData.role == "admin") {
-         userName = sessData.username;
+        userName = sessData.username;
         console.log(userName);
     }
     else {
-         userName = (sessData.userdata.username);
+        userName = (sessData.userdata.username);
     }
     let profileData
     console.log(userName);
@@ -102,11 +106,11 @@
         const form = document.getElementById("profileForm");
         const inputs = form.getElementsByTagName("input");
         for (let i = 0; i < inputs.length; i++) {
-            
+
             inputs[i].removeAttribute("disabled");
         }
         document.getElementById("role").setAttribute("disabled", "true");
-        
+
     }
 
 
@@ -149,9 +153,9 @@
     }
 
 
-    
+
     function goBack() {
-      window.history.back();
+        window.history.back();
     }
     fetchProfile(); 
 </script>

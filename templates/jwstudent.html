@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - Student Dashboard</title>
   <style>
-     body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
-      background-attachment: fixed;  
-      background-size: cover;  
+      background-attachment: fixed;
+      background-size: cover;
     }
 
     .dashboard-container {
@@ -89,7 +91,7 @@
 
     .tile-content a {
       text-decoration: none;
-      color: #007BFF;  
+      color: #007BFF;
     }
 
     .tile-content a:hover {
@@ -97,7 +99,7 @@
     }
   </style>
   <script>
-     const sessData = JSON.parse(sessionStorage.getItem("userData"));
+    const sessData = JSON.parse(sessionStorage.getItem("userData"));
     document.addEventListener("DOMContentLoaded", function () {
       const logoutLink = document.getElementById("logout-link");
       const announcementsTile = document.getElementById("announcements-tile");
@@ -118,6 +120,7 @@
     });
   </script>
 </head>
+
 <body>
   <div class="dashboard-container">
     <div class="sidebar">
@@ -128,8 +131,7 @@
       <ul class="sidebar-menu">
         <li><a href="#">Dashboard</a></li>
         <li><a href="profile.html">Profile</a></li>
-        <li><a href="#">Grades</a></li>
-        <li><a href="#">Payments</a></li>
+         
         <li><a href="#" id="logout-link">Logout</a></li>
       </ul>
     </div>
@@ -145,7 +147,7 @@
         </div>
         <div class="tile" id="announcements-tile">
           <div class="tile-heading">Announcements</div>
-          
+
           <div class="tile-content">
             <a href="announcements.html">Click here to view</a>
           </div>
@@ -154,4 +156,5 @@
     </div>
   </div>
 </body>
+
 </html>

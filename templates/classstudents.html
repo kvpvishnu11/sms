@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
+
 <head>
   <title>James Webb University - Class Students</title>
   <style>
@@ -104,6 +108,8 @@
       fetchStudentsData();
     });
 
+    // Making a Get API call to fetch the data of students enrolled in a particular Teacher's course
+    // Passing path variable which we stored in session data
     function fetchStudentsData() {
       
     

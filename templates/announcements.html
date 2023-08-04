@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
+
 <head>
   <title>James Webb University - Announcements</title>
   <style>
@@ -8,8 +12,8 @@
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
-      background-attachment: fixed; 
-      background-size: cover; 
+      background-attachment: fixed;
+      background-size: cover;
     }
 
     .container {
@@ -41,6 +45,8 @@
       fetchAnnouncements();
     });
 
+    // Get API call has been made to the back end to get existing announcements 
+    // Displaying all the announcements as a list
     async function fetchAnnouncements() {
       try {
         const response = await fetch("http://localhost:8080/sms/announcements/getall");
@@ -76,6 +82,7 @@
     }
   </script>
 </head>
+
 <body>
   <div class="container">
     <h1>Announcements</h1>
@@ -84,4 +91,5 @@
     <button class="back-button" onclick="goBack()">Back</button>
   </div>
 </body>
+
 </html>

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - View Quiz</title>
   <style>
@@ -75,6 +77,9 @@
   </div>
 
   <script>
+    // Get API call has been made to get the quiz details for that particular course
+    // Stored session data and used it to pass course id dynamically for that course
+
     document.addEventListener("DOMContentLoaded", function() {
        function fetchQuizData() {
         const urlParams = new URLSearchParams(window.location.search);

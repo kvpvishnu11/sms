@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - Post Announcements</title>
   <style>
-     body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
       background-attachment: fixed;
-       background-size: cover;
-     }
+      background-size: cover;
+    }
 
     .header {
       background-color: #333;
@@ -78,15 +79,19 @@
   </div>
 
   <script>
+
+    // When user enters some assignments and clicks submit
+    // Post API call has been called to submit the data to the back-end db
+
     const announcementNote = document.getElementById("announcement-note").value;
     document.addEventListener("DOMContentLoaded", function () {
       const announcementsForm = document.getElementById("announcements-form");
 
       announcementsForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        
+
         const data = {
-          annoucementid: 0,  
+          annoucementid: 0,
           annoucementnote: announcementNote
         };
         postAnnouncement(data);
@@ -98,27 +103,27 @@
           alert("Please Provide Details!");
           return false;
         }
-        else{
-        fetch("http://localhost:8080/sms/announcements/saveall", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify([data])
-        })
-          .then(response => {
-            if (response.ok) {
-              alert("Announcement has been posted successfully.");
-               announcementsForm.reset();
-            } else {
-              alert("Failed to post announcement.");
-            }
+        else {
+          fetch("http://localhost:8080/sms/announcements/saveall", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify([data])
           })
-          .catch(error => {
-            console.error("Error:", error);
-          });
+            .then(response => {
+              if (response.ok) {
+                alert("Announcement has been posted successfully.");
+                announcementsForm.reset();
+              } else {
+                alert("Failed to post announcement.");
+              }
+            })
+            .catch(error => {
+              console.error("Error:", error);
+            });
+        }
       }
-    }
     });
     function goBack() {
       window.history.back();

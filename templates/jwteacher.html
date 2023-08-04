@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - Teacher Dashboard</title>
   <style>
-     body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
-      background-attachment: fixed;  
-      background-size: cover;  
+      background-attachment: fixed;
+      background-size: cover;
     }
 
     .dashboard-container {
@@ -88,6 +90,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="dashboard-container">
     <div class="sidebar">
@@ -98,8 +101,7 @@
       <ul class="sidebar-menu">
         <li><a href="#">Dashboard</a></li>
         <li><a href="profile.html">Profile</a></li>
-        <li><a href="#">Courses</a></li>
-        <li><a href="#">Grades</a></li>
+         
         <li><a href="#" onclick="logout()">Logout</a></li>
       </ul>
     </div>
@@ -121,16 +123,19 @@
     </div>
   </div>
 
-   <script>
-     const sessData = JSON.parse(sessionStorage.getItem("userData"));
+  <script>
+    // Storing Session information like User details on User Login
+    // Session data is being used here for displaying name and other details 
+
+    const sessData = JSON.parse(sessionStorage.getItem("userData"));
     function goToAddContent() {
-       var courseName = "Course XYZ";
+      var courseName = "Course XYZ";
 
-       var encodedCourseName = encodeURIComponent(courseName);
+      var encodedCourseName = encodeURIComponent(courseName);
 
-       var contentUrl = "content.html?course=" + encodedCourseName;
+      var contentUrl = "content.html?course=" + encodedCourseName;
 
-       window.location.href = contentUrl;
+      window.location.href = contentUrl;
     }
     document.addEventListener("DOMContentLoaded", function () {
       //var courseName = getParameterByName("course");
@@ -138,10 +143,11 @@
     });
 
 
-     function logout() {
-       window.location.href = "homelogin.html";
-       sessionStorage.clear();
+    function logout() {
+      window.location.href = "homelogin.html";
+      sessionStorage.clear();
     }
   </script>
 </body>
+
 </html>

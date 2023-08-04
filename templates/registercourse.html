@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University</title>
   <style>
-     body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       background-image: url('school2.jpeg');
       background-attachment: fixed;
-       background-size: cover;
-     }
+      background-size: cover;
+    }
 
     .container {
       display: flex;
@@ -106,7 +107,7 @@
           </tr>
         </thead>
         <tbody id="course-list">
-         </tbody>
+        </tbody>
       </table>
       <div class="submit-button">
         <button id="submit-button" onclick="submitCourses()">Submit</button>
@@ -120,8 +121,13 @@
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-       displayData();
+      displayData();
     });
+
+    // Storing the session data on UserLogin
+    //Session data is used to pass the student id in this screen
+
+  
     const sessData = JSON.parse(sessionStorage.getItem("userData"));
     const courseReg = sessData.student_course_reg_status;
     const submitButton = document.getElementById("submit-button");
@@ -130,7 +136,7 @@
 
     function displayData() {
       if (courseReg === "true") {
-         successMessage.textContent = "Registration has been done.";
+        successMessage.textContent = "Registration has been done.";
         successMessage.style.display = "block";
         submitButton.style.display = "none";
         refreshButton.style.display = "none";
@@ -143,12 +149,13 @@
       }
     }
 
+    // Get API call has been made to display the list of courses in Database
 
     function refreshSeats() {
-       fetch("http://localhost:8080/sms/course/getall")
+      fetch("http://localhost:8080/sms/course/getall")
         .then((response) => response.json())
         .then((data) => {
-           updateCourseList(data);
+          updateCourseList(data);
         })
         .catch((error) => {
           console.error("Error fetching course data:", error);
@@ -175,121 +182,126 @@
             sessionStorage.clear();
 
           } else {
- 
+
           }
         })
         .then(userData => {
-               sessionStorage.setItem("userData", JSON.stringify(userData));
-              return;
+          sessionStorage.setItem("userData", JSON.stringify(userData));
+          return;
         })
+    }
+
+    function updateCourseList(courses) {
+      const courseList = document.getElementById("course-list");
+      courseList.innerHTML = "";
+
+      courses.forEach((course) => {
+        const courseRow = document.createElement("tr");
+
+        const courseNameCell = document.createElement("td");
+        courseNameCell.textContent = course.coursename;
+
+        const courseCreditsCell = document.createElement("td");
+        courseCreditsCell.textContent = course.coursecredits;
+
+        const seatsRemainingCell = document.createElement("td");
+        seatsRemainingCell.textContent = course.availableseats;
+
+        const selectCell = document.createElement("td");
+        const courseCheckbox = document.createElement("input");
+        courseCheckbox.type = "checkbox";
+        courseCheckbox.id = "course" + course.courseid;
+        courseCheckbox.name = "course" + course.courseid;
+        selectCell.appendChild(courseCheckbox);
+
+        courseRow.appendChild(courseNameCell);
+        courseRow.appendChild(courseCreditsCell);
+        courseRow.appendChild(seatsRemainingCell);
+        courseRow.appendChild(selectCell);
+
+        courseList.appendChild(courseRow);
+      });
+    }
+
+    function submitCourses() {
+      const courseList = document.getElementById("course-list");
+      const courseRows = courseList.getElementsByTagName("tr");
+      const selectedCourses = [];
+
+      for (let i = 0; i < courseRows.length; i++) {
+        const courseRow = courseRows[i];
+        const courseId = courseRow.querySelector("input[type='checkbox']").id.replace("course", "");
+        const isChecked = courseRow.querySelector("input[type='checkbox']").checked;
+
+        if (isChecked) {
+
+          const courseName = courseRow.querySelector("td:first-child").textContent;
+          selectedCourses.push({ courseid: courseId, coursename: courseName });
+        }
       }
 
-      function updateCourseList(courses) {
-             const courseList = document.getElementById("course-list");
-             courseList.innerHTML = "";
+      const data = {
+        studentid: sessData.studentid,
+        courseList: selectedCourses,
+      };
 
-             courses.forEach((course) => {
-              const courseRow = document.createElement("tr");
+      // Once the user selects the subjects, a POST API call has been made to save the enrollment information in DB
 
-              const courseNameCell = document.createElement("td");
-              courseNameCell.textContent = course.coursename;
-
-              const courseCreditsCell = document.createElement("td");
-              courseCreditsCell.textContent = course.coursecredits;
-
-              const seatsRemainingCell = document.createElement("td");
-              seatsRemainingCell.textContent = course.availableseats;
-
-              const selectCell = document.createElement("td");
-              const courseCheckbox = document.createElement("input");
-              courseCheckbox.type = "checkbox";
-              courseCheckbox.id = "course" + course.courseid;
-              courseCheckbox.name = "course" + course.courseid;
-              selectCell.appendChild(courseCheckbox);
-
-              courseRow.appendChild(courseNameCell);
-              courseRow.appendChild(courseCreditsCell);
-              courseRow.appendChild(seatsRemainingCell);
-              courseRow.appendChild(selectCell);
-
-              courseList.appendChild(courseRow);
-            });
-          }
-
-      function submitCourses() {
-             const courseList = document.getElementById("course-list");
-            const courseRows = courseList.getElementsByTagName("tr");
-            const selectedCourses = [];
-
-            for (let i = 0; i < courseRows.length; i++) { 
-               const courseRow = courseRows[i];
-              const courseId = courseRow.querySelector("input[type='checkbox']").id.replace("course", "");
-              const isChecked = courseRow.querySelector("input[type='checkbox']").checked;
-
-              if (isChecked) {
-
-                const courseName = courseRow.querySelector("td:first-child").textContent;
-                selectedCourses.push({ courseid: courseId, coursename: courseName });
-              }
-            }
-
-             const data = {
-              studentid: sessData.studentid,
-              courseList: selectedCourses,
-            };
-
-            fetch("http://localhost:8080/sms/enrollment/save", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-            })
-              .then((response) => {
-                if (response.ok) {
-                   successMessage.textContent = "Registration has been done.";
-                  successMessage.style.display = "block";
-                  submitButton.style.display = "none";
-                  refreshButton.style.display = "none";
-                  checkRegister(checkData);
-                } else {
-                  console.error("Registration failed. Please try again.");
-                }
-              })
-              .catch((error) => {
-                console.error("Error while registering courses:", error);
-              });
-          }
-
-      function showSuccessMessage(message) {
-            const successMessage = document.getElementById("success-message");
-            successMessage.textContent = message;
+      fetch("http://localhost:8080/sms/enrollment/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (response.ok) {
+            successMessage.textContent = "Registration has been done.";
             successMessage.style.display = "block";
-
-             const dashboard = document.getElementById("dashboard");
-            dashboard.style.pointerEvents = "none";
-            dashboard.style.opacity = 0.5;
-
-             const backButton = document.getElementById("back-button");
-            backButton.style.display = "block";
-
-            setTimeout(() => {
-              successMessage.style.display = "none";
-               dashboard.style.pointerEvents = "auto";
-              dashboard.style.opacity = 1;
-               backButton.style.display = "none";
-            }, 3000); 
-           }
-
-      function goBack() {
-
-        window.location.href = "jwstudent.html";
+            submitButton.style.display = "none";
+            refreshButton.style.display = "none";
+            checkRegister(checkData);
+          } else {
+            console.error("Registration failed. Please try again.");
           }
+        })
+        .catch((error) => {
+          console.error("Error while registering courses:", error);
+        });
+    }
+
+    // Handling logic to show registration success message
+    // Handling logic to make submit and refresh button invisible once user registers successfully 
+
+    function showSuccessMessage(message) {
+      const successMessage = document.getElementById("success-message");
+      successMessage.textContent = message;
+      successMessage.style.display = "block";
+
+      const dashboard = document.getElementById("dashboard");
+      dashboard.style.pointerEvents = "none";
+      dashboard.style.opacity = 0.5;
+
+      const backButton = document.getElementById("back-button");
+      backButton.style.display = "block";
+
+      setTimeout(() => {
+        successMessage.style.display = "none";
+        dashboard.style.pointerEvents = "auto";
+        dashboard.style.opacity = 1;
+        backButton.style.display = "none";
+      }, 3000);
+    }
+
+    function goBack() {
+
+      window.location.href = "jwstudent.html";
+    }
 
 
-          
-      refreshSeats();
-      displayData();
+
+    refreshSeats();
+    displayData();
   </script>
 </body>
 

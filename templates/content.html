@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-
+<!-- HTML Layout and CSS Templates have been referred from Internet-->
+<!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - Add Content</title>
   <style>
@@ -98,8 +99,8 @@
       console.log(notes);
 
       var requestData = {
-        url: notes, 
-        courseid: sessData.courseid 
+        url: notes,
+        courseid: sessData.courseid
       };
 
       if (notes == "") {

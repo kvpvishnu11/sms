@@ -1,0 +1,491 @@
+{
+	"info": {
+		"_postman_id": "3ddcf4fb-fb68-44cf-b31b-65cc9883b70d",
+		"name": "StudentManagementSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28698571"
+	},
+	"item": [
+		{
+			"name": "Fetch Quiz",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/quiz/fetchquiz/12345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"quiz",
+						"fetchquiz",
+						"12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New User Sign Up",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "rajesh123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "rajesh",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"kvp55\",\n  \"password\": \"secretpassword\",\n  \"first_name\": \"Ving\",\n  \"last_name\": \"Dhee\",\n  \"phone_no\": \"123-456-7890\",\n  \"email\": \"ving.doe@example.com\",\n  \"role\": \"student\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/userlogin/signupuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"userlogin",
+						"signupuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check User exists",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \n  \"password\": \"123\"\n  \n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/userlogin/checkuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"userlogin",
+						"checkuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/course/getall",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"course",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save Course material",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"url\": \"https://example.com/course-materials/lesson-1\",\n  \"courseid\": 12345\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/coursematerial/savematerial",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"coursematerial",
+						"savematerial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save New quiz",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"question\": \"What is the capital of France?\",\n    \"option1\": \"London\",\n    \"option2\": \"Paris\",\n    \"option3\": \"Berlin\",\n    \"rightanswer\": \"Paris\",\n    \"courseid\": 12345\n  },\n  {\n    \"question\": \"Which planet is closest to the Sun?\",\n    \"option1\": \"Venus\",\n    \"option2\": \"Earth\",\n    \"option3\": \"Mercury\",\n    \"rightanswer\": \"Mercury\",\n    \"courseid\": 12345\n  },\n  {\n    \"question\": \"What is the chemical symbol for water?\",\n    \"option1\": \"Wo\",\n    \"option2\": \"H2O\",\n    \"option3\": \"Hy\",\n    \"rightanswer\": \"H2O\",\n    \"courseid\": 12345\n  }\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/quiz/savenewquiz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"quiz",
+						"savenewquiz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Display Profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/userlogin/displayuser/kvp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"userlogin",
+						"displayuser",
+						"kvp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Annoucements",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \n    \"annoucement_note\": \"Important announcement regarding the upcoming exam.\"\n  },\n  {\n    \n    \"annoucement_note\": \"The school will be closed on Friday due to inclement weather.\"\n  }\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/announcements/saveall",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"announcements",
+						"saveall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 2,\n    \"username\": \"kvp\",\n    \"password\": \"secretpassword\",\n    \"first_name\": \"Vishnu\",\n    \"last_name\": \"Bhardwaj\",\n    \"phone_no\": \"123-456-7890\",\n    \"email\": \"john.doe@example.com\",\n    \"role\": \"teacher\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/userlogin/updateuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"userlogin",
+						"updateuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save enrollments",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"student_id\": 2,\n  \"courseList\": [\n    {\n      \"course_id\": 1,\n      \"course_name\": \"Physics\"\n    },\n    {\n      \"course_id\": 2,\n      \"course_name\": \"Chemistry\"\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/enrollment/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"enrollment",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Browse enrollments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/enrollment/browse/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"enrollment",
+						"browse",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Students for Teacher",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/teacher/fetchstudents/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"teacher",
+						"fetchstudents",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Course Content",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/coursematerial/getcontent/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"coursematerial",
+						"getcontent",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Teacher List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/teacher/getall",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"teacher",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Annoucnements",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/announcements/getall",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"announcements",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save all courses",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"courseid\": 1,\n    \"coursename\": \"Introduction to Programming\",\n    \"coursecredits\": \"3\",\n    \"availableseats\": 25,\n    \"teacherid\": 101\n  },\n  {\n    \"courseid\": 2,\n    \"coursename\": \"Data Structures and Algorithms\",\n    \"coursecredits\": \"4\",\n    \"availableseats\": 20,\n    \"teacherid\": 102\n  },\n  {\n    \"courseid\": 3,\n    \"coursename\": \"Database Management\",\n    \"coursecredits\": \"3\",\n    \"availableseats\": 18,\n    \"teacherid\": 103\n  }\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/course/saveall",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"course",
+						"saveall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete OLD Quiz in a Course",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sms/quiz/deletequiz/12345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"quiz",
+						"deletequiz",
+						"12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Quiz - Get Marks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"question_id\": 8,\n    \"choosen_answer\": \"Paris\",\n    \"course_id\": 12345\n  },\n  {\n    \"question_id\": 9,\n    \"choosen_answer\": \"Mercury\",\n    \"course_id\": 12345\n  },\n  {\n    \"question_id\": 10,\n    \"choosen_answer\": \"22\",\n    \"course_id\": 12345\n  }\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sms/quiz/submitquiz/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sms",
+						"quiz",
+						"submitquiz",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

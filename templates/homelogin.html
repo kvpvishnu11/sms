@@ -141,17 +141,16 @@
         })
         .then(userData => {
 
-          if ("role" in userData) {
-            if (userData.role === "admin") {
-              window.location.href = "jwadmin.html";
-              sessionStorage.setItem("userData", JSON.stringify(userData));
-              return;
-            }
-          }
+          // if ("role" in userData) {
+          //   if (userData.role === "admin") {
+             
+          //     return;
+          //   }
+          // }
 
           if ("userdata" in userData) {
             if (userData.userdata.role === "teacher") {
-              if (userData.courseid !== 0) {
+              if (userData.course_id !== 0) {
                 window.location.href = "jwteacher.html";
                 sessionStorage.setItem("userData", JSON.stringify(userData));
               } else {
@@ -162,7 +161,8 @@
               sessionStorage.setItem("userData", JSON.stringify(userData));
 
             } else {
-              alert("Invalid user role");
+              window.location.href = "jwadmin.html";
+              sessionStorage.setItem("userData", JSON.stringify(userData));
             }
           } else {
             window.location.href = "jwadmin.html";

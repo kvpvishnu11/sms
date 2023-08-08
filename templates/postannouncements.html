@@ -79,31 +79,28 @@
   </div>
 
   <script>
-
-    // When user enters some assignments and clicks submit
-    // Post API call has been called to submit the data to the back-end db
-
-    const announcementNote = document.getElementById("announcement-note").value;
     document.addEventListener("DOMContentLoaded", function () {
       const announcementsForm = document.getElementById("announcements-form");
-
+  
       announcementsForm.addEventListener("submit", function (event) {
         event.preventDefault();
-
+  
+        const announcementNote = document.getElementById("announcement-note").value; 
+  
         const data = {
-          annoucementid: 0,
-          annoucementnote: announcementNote
+         // annoucement_id: 0,
+          annoucement_note: announcementNote
         };
         postAnnouncement(data);
       });
-
+  
       function postAnnouncement(data) {
-
-        if (announcementNote == "") {
-          alert("Please Provide Details!");
+        const announcementNote = data.annoucement_note;  
+  
+        if (announcementNote.trim() === "") {
+          alert("Please provide some details.");
           return false;
-        }
-        else {
+        } else {
           fetch("http://localhost:8080/sms/announcements/saveall", {
             method: "POST",
             headers: {
@@ -125,10 +122,12 @@
         }
       }
     });
+  
     function goBack() {
       window.history.back();
     }
   </script>
+  
 </body>
 
 </html>

@@ -89,10 +89,11 @@
        function fetchCourseContent() {
         const urlParams = new URLSearchParams(window.location.search);
         const courseId = urlParams.get('courseid');
+        console.log(courseId);
 
         // GET call has been made to view the content in a particular course 
 
-        const url = `http://localhost:8080/sms/coursematerial/getcontent/${courseId}`;
+        const url = "http://localhost:8080/sms/coursematerial/getcontent/"+courseId;
         fetch(url)
           .then(response => response.json())
           .then(courseMaterials => {
@@ -109,22 +110,22 @@
 
                 const courseID = document.createElement("div");
                 courseID.className = "course-id";
-                courseID.textContent = `Course ID: ${material.courseid}`;
+                courseID.textContent = `Course ID: ${material.course_id}`;
                 contentItemElement.appendChild(courseID);
 
                 const courseName = document.createElement("div");
                 courseName.className = "course-name";
-                courseName.textContent = `Course Material ${material.coursematerialid}`;
+                courseName.textContent = `Course Material ${material.coursematerial_id}`;
                 contentItemElement.appendChild(courseName);
 
                 const courseMaterial = document.createElement("div");
                 courseMaterial.className = "course-material";
 
-                const materialLink = document.createElement("a");
+                const materialLink = document.createElement("p");
                 materialLink.className = "material-link";
-                materialLink.href = material.url;
+               // materialLink.href = material.url;
                 materialLink.textContent = material.url;
-                materialLink.target = "_blank";
+               // materialLink.target = "_blank";
                 courseMaterial.appendChild(materialLink);
 
                 contentItemElement.appendChild(courseMaterial);

@@ -4,6 +4,8 @@
 <!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - Teacher Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -106,18 +108,22 @@
       </ul>
     </div>
     <div class="dashboard-content">
-      <div class="dashboard-tiles">
-        <div class="tile">
-          <div class="tile-heading">Total Class Students</div>
+      <div class="dashboard-tiles row">
+        <div class="tile col-4">
+          <div class="tile-heading ">Total Class Students</div>
           <a href="classstudents.html">Click here to view</a>
         </div>
-        <div class="tile">
+        <div class="tile col-4">
           <div class="tile-heading">Add Content</div>
           <a href="javascript:void(0);" onclick="goToAddContent()">Click here to add</a>
         </div>
-        <div class="tile">
+        <div class="tile col-4">
           <div class="tile-heading">Add Quizzes</div>
           <a href="addquizzes.html">Click here to add</a>
+        </div>
+        <div class="tile col-4">
+          <div class="tile-heading">View Announcements</div>
+          <a href="announcements.html">Click here to add</a>
         </div>
       </div>
     </div>
@@ -139,7 +145,7 @@
     }
     document.addEventListener("DOMContentLoaded", function () {
       //var courseName = getParameterByName("course");
-      document.getElementById("userDp").textContent = sessData.userdata.firstname;
+      document.getElementById("userDp").textContent = sessData.userdata.first_name;
     });
 
 

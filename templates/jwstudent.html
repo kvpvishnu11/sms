@@ -4,6 +4,7 @@
 <!-- Modified according to our own requirement. API calls and further logic to display them has been implemented -->
 <head>
   <title>James Webb University - Student Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -116,7 +117,7 @@
     });
     document.addEventListener("DOMContentLoaded", function () {
       //var courseName = getParameterByName("course");
-      document.getElementById("userDp").textContent = sessData.userdata.firstname;
+      document.getElementById("userDp").textContent = sessData.userdata.first_name;
     });
   </script>
 </head>
@@ -136,21 +137,18 @@
       </ul>
     </div>
     <div class="dashboard-content">
-      <div class="dashboard-tiles">
-        <div class="tile" id="register-course-tile">
+      <div class="dashboard-tiles row">
+        <div class="tile col-4" id="register-course-tile">
           <div class="tile-heading">Register for Classes</div>
           <a href="registercourse.html">Click here to register</a>
         </div>
-        <div class="tile" id="browse-classes-tile">
+        <div class="tile col-4" id="browse-classes-tile">
           <div class="tile-heading">Browse Registered Classes</div>
           <a href="browseclasses.html">Click here to browse</a>
         </div>
-        <div class="tile" id="announcements-tile">
+        <div class="tile col-4" id="announcements-tile">
           <div class="tile-heading">Announcements</div>
-
-          <div class="tile-content">
             <a href="announcements.html">Click here to view</a>
-          </div>
         </div>
       </div>
     </div>

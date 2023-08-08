@@ -103,7 +103,7 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       var courseTitle = getParameterByName("course");
-      document.getElementById("courseTitle").textContent = sessData.teachingcourse;
+      document.getElementById("courseTitle").textContent = sessData.teaching_course;
 
       fetchStudentsData();
     });
@@ -113,7 +113,7 @@
     function fetchStudentsData() {
       
     
-      var courseId = sessData.courseid; 
+      var courseId = sessData.course_id; 
       var studentsTable = document.getElementById("studentsTable");
 
       fetch(`http://localhost:8080/sms/teacher/fetchstudents/${courseId}`)
@@ -125,9 +125,9 @@
           studentsData.forEach((student) => {
             var row = document.createElement("tr");
             row.innerHTML = `
-              <td>${student.studentid}</td>
-              <td>${student.firstname}</td>
-              <td>${student.lastname}</td>
+              <td>${student.student_id}</td>
+              <td>${student.first_name}</td>
+              <td>${student.last_name}</td>
             `;
             tbody.appendChild(row);
           });

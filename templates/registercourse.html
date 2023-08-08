@@ -199,19 +199,19 @@
         const courseRow = document.createElement("tr");
 
         const courseNameCell = document.createElement("td");
-        courseNameCell.textContent = course.coursename;
+        courseNameCell.textContent = course.course_name;
 
         const courseCreditsCell = document.createElement("td");
-        courseCreditsCell.textContent = course.coursecredits;
+        courseCreditsCell.textContent = course.course_credits;
 
         const seatsRemainingCell = document.createElement("td");
-        seatsRemainingCell.textContent = course.availableseats;
+        seatsRemainingCell.textContent = course.available_seats;
 
         const selectCell = document.createElement("td");
         const courseCheckbox = document.createElement("input");
         courseCheckbox.type = "checkbox";
-        courseCheckbox.id = "course" + course.courseid;
-        courseCheckbox.name = "course" + course.courseid;
+        courseCheckbox.id = "course" + course.course_id;
+        courseCheckbox.name = "course" + course.course_id;
         selectCell.appendChild(courseCheckbox);
 
         courseRow.appendChild(courseNameCell);
@@ -236,12 +236,12 @@
         if (isChecked) {
 
           const courseName = courseRow.querySelector("td:first-child").textContent;
-          selectedCourses.push({ courseid: courseId, coursename: courseName });
+          selectedCourses.push({ course_id: courseId, course_name: courseName });
         }
       }
 
       const data = {
-        studentid: sessData.studentid,
+        student_id: sessData.student_id,
         courseList: selectedCourses,
       };
 

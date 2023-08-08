@@ -105,11 +105,23 @@
     .quiz-option {
       margin-left: 20px;
     }
+    .tabs a {
+    padding-right: 15px;
+}
+.back-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
   </style>
  <script>
   document.addEventListener("DOMContentLoaded", function() {
     const sessData = JSON.parse(sessionStorage.getItem("userData"));
-    const studentIddata = JSON.stringify(sessData.studentid);
+    const studentIddata = JSON.stringify(sessData.student_id);
     function fetchCourses() {
       
       const url = "http://localhost:8080/sms/enrollment/browse/"+studentIddata; 
@@ -131,7 +143,7 @@
 
               const courseName = document.createElement("div");
               courseName.className = "course-name";
-              courseName.textContent = `${course.coursename} (ID: ${course.courseid})`;
+              courseName.textContent = `${course.course_name} (ID: ${course.course_id})`;
               courseItem.appendChild(courseName);
 
               const tabs = document.createElement("div");
@@ -141,14 +153,14 @@
               const viewContentTab = document.createElement("a");
               viewContentTab.className = "view-content-tab active";
               viewContentTab.textContent = "View Content";
-              viewContentTab.href = `viewcontent.html?courseid=${course.courseid}`;
+              viewContentTab.href = `viewcontent.html?courseid=${course.course_id}`;
               viewContentTab.target = "_blank";
               tabs.appendChild(viewContentTab);
 
               const viewQuizzesTab = document.createElement("a");
               viewQuizzesTab.className = "view-quizzes-tab";
               viewQuizzesTab.textContent = "View Quizzes";
-              viewQuizzesTab.href = `viewquiz.html?courseid=${course.courseid}`;
+              viewQuizzesTab.href = `viewquiz.html?courseid=${course.course_id}`;
               viewQuizzesTab.target = "_blank";
               tabs.appendChild(viewQuizzesTab);
 

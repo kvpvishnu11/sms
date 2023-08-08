@@ -1,44 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!--  Profile reffered from the bootstrap template --> >
+<!--  Profile reffered from the bootstrap template -->
 
-<!--  Modified according to our own API calls --> >
+<!--  Modified according to our own API calls -->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Modal with Edit</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            background-image: url('school2.jpeg');
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .formContainer {
+            background: #fff;
+
+            padding: 30px;
+            border-radius: 30px;
+            max-width: 75%;
+
+            margin: auto;
+            margin-top: 40px;
+        
+        }
+    </style>
 
 </head>
 
 <body>
-    <div class="container">
-        <h1>Profile Information</h1>
-    </div>
-    <div class="container">
-        <form id="profileForm">
-            <p><strong>User ID:</strong> <span id="userId"></span></p>
-            <p><strong>Username:</strong> <span id="username"></span></p>
-            <label for="firstName"><strong>First Name:</strong></label>
-            <input type="text" id="firstName" class="form-control" disabled>
-            <label for="lastName"><strong>Last Name:</strong></label>
-            <input type="text" id="lastName" class="form-control" disabled>
-            <label for="phoneNo"><strong>Phone No:</strong></label>
-            <input type="text" id="phoneNo" class="form-control" disabled>
-            <label for="email"><strong>Email:</strong></label>
-            <input type="email" id="email" class="form-control" disabled>
-            <label for="role"><strong>Role:</strong></label>
-            <input type="text" id="role" class="form-control" disabled>
-            <label for="role"><strong>Password:</strong></label>
-            <input type="password" id="password" class="form-control" disabled>
-        </form>
-        <div class="modal-footer">
-            <button class="back-button btn btn-secondary" onclick="goBack()">Back</button>
-            <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
-            <button type="button" class="btn btn-success" onclick="updateProfile()">Update Profile</button>
+    <div class="formContainer">
+        <div class="container">
+            <h1>Profile Information</h1>
+        </div>
+        <div class="container">
+            <form id="profileForm">
+                <p><strong>User ID:</strong> <span id="userId"></span></p>
+                <p><strong>Username:</strong> <span id="username"></span></p>
+                <label for="firstName"><strong>First Name:</strong></label>
+                <input type="text" id="firstName" class="form-control" disabled>
+                <label for="lastName"><strong>Last Name:</strong></label>
+                <input type="text" id="lastName" class="form-control" disabled>
+                <label for="phoneNo"><strong>Phone No:</strong></label>
+                <input type="text" id="phoneNo" class="form-control" disabled>
+                <label for="email"><strong>Email:</strong></label>
+                <input type="email" id="email" class="form-control" disabled>
+                <label for="role"><strong>Role:</strong></label>
+                <input type="text" id="role" class="form-control" disabled>
+                <label for="role"><strong>Password:</strong></label>
+                <input type="password" id="password" class="form-control" disabled>
+            </form>
+            <div class="modal-footer">
+                <button class="back-button btn btn-secondary" onclick="goBack()">Back</button>
+                <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
+                <button type="button" class="btn btn-success" onclick="updateProfile()">Update Profile</button>
 
+            </div>
         </div>
     </div>
 
@@ -83,13 +107,13 @@
 
             .then(data => {
 
-                document.getElementById("userId").textContent = data.userid;
+                document.getElementById("userId").textContent = data.user_id;
                 document.getElementById("username").textContent = data.username;
                 document.getElementById("userId").value = data.userid;
                 document.getElementById("username").value = data.username;
-                document.getElementById("firstName").value = data.firstname;
-                document.getElementById("lastName").value = data.lastname;
-                document.getElementById("phoneNo").value = data.phoneno;
+                document.getElementById("firstName").value = data.first_name;
+                document.getElementById("lastName").value = data.last_name;
+                document.getElementById("phoneNo").value = data.phone_no;
                 document.getElementById("email").value = data.email;
                 document.getElementById("role").value = data.role;
                 document.getElementById("password").value = data.password;
@@ -117,12 +141,12 @@
     async function updateProfile() {
         const form = document.getElementById("profileForm");
         const data = {
-            userid: document.getElementById("userId").textContent,
+            user_id: document.getElementById("userId").textContent,
             username: document.getElementById("username").textContent,
             password: form.password.value,
-            firstname: form.firstName.value,
-            lastname: form.lastName.value,
-            phoneno: form.phoneNo.value,
+            first_name: form.firstName.value,
+            last_name: form.lastName.value,
+            phone_no: form.phoneNo.value,
             email: form.email.value,
             role: form.role.value,
         };

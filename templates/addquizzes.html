@@ -146,7 +146,7 @@
 
     </div>
     <div class="question-form">
-      <button onclick="addQuestion()">Add Question</button><button onclick="deleteQuiz()">delete Quiz</button>
+      <button onclick="addQuestion()">Add Question</button><button onclick="deleteQuiz()">Delete Old Quizzes</button>
     </div>
     <div class="quiz-questions">
       <h2>Added Questions</h2>
@@ -172,7 +172,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-      document.getElementById("courseName").textContent = sessData.teachingcourse;
+      document.getElementById("courseName").textContent = sessData.teaching_course;
     });
 
     var questionCounter = 0;
@@ -230,12 +230,13 @@
     function deleteQuiz() {
 
 
-      fetch('http://localhost:8080/sms/quiz/deletequiz/' + sessData.courseid, {
+      fetch('http://localhost:8080/sms/quiz/deletequiz/' + sessData.course_id, {
         method: 'DELETE'
       })
         .then(response => {
           if (response.ok) {
             console.log('Successfully deleted the quiz.');
+            alert(" Old Quizzes has been deleted. ")
           } else {
             console.error('Failed to delete the quiz. Status:', response.status);
           }
@@ -281,8 +282,8 @@
             "option2": options[1],
             "option3": options[2],
             "option4": options[3],
-            "rightanswer": correctAnswer,
-            "courseid": sessData.courseid
+            "right_answer": correctAnswer,
+            "course_id": sessData.course_id
           };
 
           quizData.push(questionObject);

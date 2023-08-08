@@ -3,7 +3,7 @@ This is a Student mangement System.
 
 1. Install JDK 17: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 
-2. For Back end Java Code - Install STS: https://spring.io/tools 
+2. For Back end Java Code - Install STS: https://spring.io/tools - we have installed STS with eclipse from this link.
 
 3. Install MySQL: https://dev.mysql.com/downloads/mysql/
 
@@ -17,11 +17,11 @@ This is a Student mangement System.
 
 8. In STS IDE, go to the Project folder, navigate to src/resources/application.properties
 
-9. In application.properties, update your mysql username and password.
+9. In application.properties, update your mysql username and password. Save it.
 
-10. In STS IDE, right click on the Projet folder and select Run the application as Spring Boot App.
+10. In STS IDE, right click on the Project folder and select Run the application as Spring Boot App. 
 
-11. Server will be up on 8080 port. Back end APIs become available now.
+11. If above steps are correctly followed, then the server will be up on 8080 port. Now, APIs will be available for Front-end code to access.
 
 12. For Front end, clone git URL in VS code. Open templates folder. Run it on Server 5500.
 

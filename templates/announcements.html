@@ -39,6 +39,16 @@
     .announcement-id {
       color: #777;
     }
+
+ .back-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -65,11 +75,11 @@
 
         const announcementNote = document.createElement("div");
         announcementNote.classList.add("announcement-note");
-        announcementNote.textContent = announcement.annoucementnote;
+        announcementNote.textContent = announcement.annoucement_note;
 
         const announcementId = document.createElement("div");
         announcementId.classList.add("announcement-id");
-        announcementId.textContent = "Announcement ID: " + announcement.annoucementid;
+       // announcementId.textContent = "Announcement ID: " + announcement.annoucement_id;
 
         announcementCard.appendChild(announcementNote);
         announcementCard.appendChild(announcementId);

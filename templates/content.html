@@ -90,7 +90,7 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       var courseName = getParameterByName("course");
-      document.getElementById("courseName").textContent = sessData.teachingcourse;
+      document.getElementById("courseName").textContent = sessData.teaching_course;
     });
 
     function saveContent() {
@@ -100,7 +100,7 @@
 
       var requestData = {
         url: notes,
-        courseid: sessData.courseid
+        course_id: sessData.course_id
       };
 
       if (notes == "") {

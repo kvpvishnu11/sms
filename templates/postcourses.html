@@ -130,8 +130,8 @@
       teacherSelect.appendChild(defaultOption);
       for (const teacher of teachersData) {
         const option = document.createElement("option");
-        option.value = teacher.teacherid;
-        option.textContent = teacher.firstname + " " + teacher.lastname;
+        option.value = teacher.teacher_id;
+        option.textContent = teacher.first_name + " " + teacher.last_name;
         teacherSelect.appendChild(option);
       }
       return teacherSelect;
@@ -218,17 +218,17 @@
           const selectedTeacherId = row.querySelector('select[name="teacher-select"]').value;
 
           const course = {
-            courseid: i,
-            coursename: courseName,
-            coursecredits: courseCredits,
-            availableseats: availableSeats,
-            teacherid: parseInt(selectedTeacherId)
+            course_id: i,
+            course_name: courseName,
+            course_credits: courseCredits,
+            available_seats: availableSeats,
+            teacher_id: parseInt(selectedTeacherId)
           };
 
           courseData.push(course);
         }
 
-        const selectedTeachers = courseData.map(course => course.teacherid);
+        const selectedTeachers = courseData.map(course => course.teacher_id);
         const hasDuplicates = new Set(selectedTeachers).size !== selectedTeachers.length;
 
         if (hasDuplicates) {

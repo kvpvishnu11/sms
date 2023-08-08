@@ -56,20 +56,8 @@ public class UserLoginControllerTest {
     // Comparing the result 
 
 
-    @Test
-    public void testSaveTheNewUser() throws Exception {
-        UserLogin newUser = new UserLogin(10, "test3", "testpwd", "kvp", "vishnu", "1234567890",
-                "kvp.vishnu@example.com", "student");
+    
 
-         Mockito.when(userLoginService.saveTheNewUser(Mockito.any(UserLogin.class))).thenReturn(newUser);
-
-         mockMvc.perform(MockMvcRequestBuilders.post("/userlogin/signupuser")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(newUser)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value(newUser.getUsername()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(newUser.getEmail()));
-    }
     @Test
     public void testGetUserDetails_UserFound() throws Exception {
         // Prepare test data
@@ -82,7 +70,7 @@ public class UserLoginControllerTest {
         // Perform the GET request  
         mockMvc.perform(MockMvcRequestBuilders.get("/userlogin/displayuser/{uname}", "testuser"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("{\"userid\":1,\"username\":\"testuser\",\"password\":\"testpwd\",\"firstname\":\"avinash\",\"lastname\":\"kun\",\"phoneno\":\"1234567890\",\"email\":\"avi.soe@example.com\",\"role\":\"student\"}"));
+                .andExpect(MockMvcResultMatchers.content().json("{\"user_id\":1,\"username\":\"testuser\",\"password\":\"testpwd\",\"first_name\":\"avinash\",\"last_name\":\"kun\",\"phone_no\":\"1234567890\",\"email\":\"avi.soe@example.com\",\"role\":\"student\"}"));
     }
 
 

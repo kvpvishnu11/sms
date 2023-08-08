@@ -7,7 +7,7 @@ import com.myproj.spring.sms.entities.Course;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 	
-	@Query(value = "SELECT * FROM course WHERE teacherid = :id", nativeQuery = true)
+	@Query(value = "SELECT * FROM course WHERE teacher_id = :id", nativeQuery = true)
 	public Course findByTeacherid(long id);
 
 }

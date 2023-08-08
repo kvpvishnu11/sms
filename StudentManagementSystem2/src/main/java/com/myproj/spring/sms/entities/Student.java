@@ -9,29 +9,29 @@ import jakarta.persistence.Id;
 public class Student {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long studentid;
-	private long userid;
-	public long getStudentid() {
-		return studentid;
+	private long student_id;
+	private long user_id;
+	public long getStudent_id() {
+		return student_id;
 	}
-	public void setStudentid(long studentid) {
-		this.studentid = studentid;
+	public void setStudent_id(long student_id) {
+		this.student_id = student_id;
 	}
-	public long getUserid() {
-		return userid;
+	public long getUser_id() {
+		return user_id;
 	}
-	public void setUserid(long userid) {
-		this.userid = userid;
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
 	}
-	public Student(long studentid, long userid) {
+	public Student(long student_id, long user_id) {
 		super();
-		this.studentid = studentid;
-		this.userid = userid;
+		this.student_id = student_id;
+		this.user_id = user_id;
 	}
 	public Student() {
 		super();
 	}
-	
+	 
 	
 
 }

@@ -46,9 +46,9 @@ public class CourseMaterialControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(cm)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.coursematerialid").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.coursematerial_id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("https://example.com/material1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.courseid").value(1001));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.course_id").value(1001));
     }
 
     @Test
@@ -61,11 +61,11 @@ public class CourseMaterialControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/coursematerial/getcontent/{cid}", 1001))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].coursematerialid").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].coursematerial_id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].url").value("https://example.com/material1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].courseid").value(1001))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].coursematerialid").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].course_id").value(1001))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].coursematerial_id").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].url").value("https://example.com/material2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].courseid").value(1001));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].course_id").value(1001));
     }
 }

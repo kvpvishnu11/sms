@@ -3,6 +3,7 @@ package com.myproj.spring.sms.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +22,16 @@ public class TeacherController {
 	private TeacherService teacherService;
 	
 	@GetMapping("/fetchstudents/{teacherid}")
-	public List<StudentListDTOImpl> displayListOfStudentsFromTeacherID(@PathVariable("teacherid") Long teacherid){
-		
-		return teacherService.getStudents(teacherid);
+	public ResponseEntity<?> displayListOfStudentsFromTeacherID(@PathVariable("teacherid") Long teacherid) {
+	    //  Check if the teacher id is null or invalid
+	    if (teacherid == null || teacherid <= 0) {
+	        return ResponseEntity.badRequest().body("Invalid Teacher ID.");
+	    }
+	    List<StudentListDTOImpl> students = teacherService.getStudents(teacherid);    
+	    if (students == null || students.isEmpty()) {
+	        return ResponseEntity.badRequest().body("No students found for the given teacher ID.");
+	    }
+	    return ResponseEntity.ok(students);
 	}
 	
 	@GetMapping("/getall")

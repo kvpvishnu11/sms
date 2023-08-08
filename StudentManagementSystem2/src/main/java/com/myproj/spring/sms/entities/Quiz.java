@@ -10,19 +10,19 @@ public class Quiz {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long questionid;
+    private long question_id;
     private String question;
     private String option1;
     private String option2;
     private String option3;
     private String option4;
-    private String rightanswer;
-    private long courseid;
-	public long getQuestionid() {
-		return questionid;
+    private String right_answer;
+    private long course_id;
+	public long getQuestion_id() {
+		return question_id;
 	}
-	public void setQuestionid(long questionid) {
-		this.questionid = questionid;
+	public void setQuestion_id(long question_id) {
+		this.question_id = question_id;
 	}
 	public String getQuestion() {
 		return question;
@@ -54,29 +54,29 @@ public class Quiz {
 	public void setOption4(String option4) {
 		this.option4 = option4;
 	}
-	public String getRightanswer() {
-		return rightanswer;
+	public String getRight_answer() {
+		return right_answer;
 	}
-	public void setRightanswer(String rightanswer) {
-		this.rightanswer = rightanswer;
+	public void setRight_answer(String right_answer) {
+		this.right_answer = right_answer;
 	}
-	public long getCourseid() {
-		return courseid;
+	public long getCourse_id() {
+		return course_id;
 	}
-	public void setCourseid(long courseid) {
-		this.courseid = courseid;
+	public void setCourse_id(long course_id) {
+		this.course_id = course_id;
 	}
-	public Quiz(long questionid, String question, String option1, String option2, String option3, String option4,
-			String rightanswer, long courseid) {
+	public Quiz(long question_id, String question, String option1, String option2, String option3, String option4,
+			String right_answer, long course_id) {
 		super();
-		this.questionid = questionid;
+		this.question_id = question_id;
 		this.question = question;
 		this.option1 = option1;
 		this.option2 = option2;
 		this.option3 = option3;
 		this.option4 = option4;
-		this.rightanswer = rightanswer;
-		this.courseid = courseid;
+		this.right_answer = right_answer;
+		this.course_id = course_id;
 	}
 	public Quiz() {
 		super();

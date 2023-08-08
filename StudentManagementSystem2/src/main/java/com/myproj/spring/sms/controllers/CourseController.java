@@ -3,6 +3,7 @@ package com.myproj.spring.sms.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,11 +28,14 @@ public class CourseController {
 	}
 	
 	@PostMapping("/saveall")
-	public List<Course> saveCourses(@RequestBody List<Course> c){
-		
-		return courseService.postAllCourses(c);
-		
-		
+	public ResponseEntity<?> saveCourses(@RequestBody List<Course> c) {
+	    if (c == null || c.isEmpty()) {
+	        return ResponseEntity.badRequest().body("Request body is empty.");
+	    } else {
+	        List<Course> savedCourses = courseService.postAllCourses(c);
+	        return ResponseEntity.ok(savedCourses);
+	    }
 	}
+
 
 }

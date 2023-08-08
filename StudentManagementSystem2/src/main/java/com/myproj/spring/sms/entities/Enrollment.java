@@ -10,45 +10,46 @@ public class Enrollment {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long enrollmentid;
-	private long studentid;
-	private long courseid;
-	private String coursename;
-	
-	public String getCoursename() {
-		return coursename;
+	private long enrollment_id;
+	private long student_id;
+	private long course_id;
+	private String course_name;
+	public long getEnrollment_id() {
+		return enrollment_id;
 	}
-	public void setCoursename(String coursename) {
-		this.coursename = coursename;
+	public void setEnrollment_id(long enrollment_id) {
+		this.enrollment_id = enrollment_id;
 	}
-	public long getEnrollmentid() {
-		return enrollmentid;
+	public long getStudent_id() {
+		return student_id;
 	}
-	public void setEnrollmentid(long enrollmentid) {
-		this.enrollmentid = enrollmentid;
+	public void setStudent_id(long student_id) {
+		this.student_id = student_id;
 	}
-	public long getStudentid() {
-		return studentid;
+	public long getCourse_id() {
+		return course_id;
 	}
-	public void setStudentid(long studentid) {
-		this.studentid = studentid;
+	public void setCourse_id(long course_id) {
+		this.course_id = course_id;
 	}
-	public long getCourseid() {
-		return courseid;
+	public String getCourse_name() {
+		return course_name;
 	}
-	public void setCourseid(long courseid) {
-		this.courseid = courseid;
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
 	}
-	public Enrollment(long enrollmentid, long studentid, long courseid, String coursename) {
+	public Enrollment(long enrollment_id, long student_id, long course_id, String course_name) {
 		super();
-		this.enrollmentid = enrollmentid;
-		this.studentid = studentid;
-		this.courseid = courseid;
-		this.coursename = coursename;
+		this.enrollment_id = enrollment_id;
+		this.student_id = student_id;
+		this.course_id = course_id;
+		this.course_name = course_name;
 	}
 	public Enrollment() {
 		super();
 	}
+	
+	 
 	
 
 }

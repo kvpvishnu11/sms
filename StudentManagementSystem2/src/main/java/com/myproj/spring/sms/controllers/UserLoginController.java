@@ -1,9 +1,5 @@
 package com.myproj.spring.sms.controllers;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,18 +9,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.myproj.spring.sms.dto.UserDTO;
 import com.myproj.spring.sms.dto.UserDataDTO;
-import com.myproj.spring.sms.entities.Student;
-import com.myproj.spring.sms.entities.Teacher;
-import com.myproj.spring.sms.entities.Course;
-import com.myproj.spring.sms.entities.Enrollment;
-import com.myproj.spring.sms.entities.UserLogin;
-import com.myproj.spring.sms.service.CourseService;
-import com.myproj.spring.sms.service.EnrollmentService;
-import com.myproj.spring.sms.service.StudentService;
-import com.myproj.spring.sms.service.TeacherService;
+ import com.myproj.spring.sms.entities.UserLogin;
 import com.myproj.spring.sms.service.UserLoginService;
 
 @RestController
@@ -34,134 +21,71 @@ public class UserLoginController {
 	@Autowired
 	private UserLoginService userLoginService;
 
-	@Autowired
-	private StudentService studentService;
-
-	@Autowired
-	private TeacherService teacherService;
-
-	@Autowired
-	private CourseService courseService;
-
-	@Autowired
-	private EnrollmentService enrollmentService;
-
-	// NEW USER SIGN UP
 	@PostMapping("/signupuser")
 	public ResponseEntity<?> saveNewUserSignup(@RequestBody UserLogin u) {
 
-		String usernamecheck = u.getUsername();
+	    // Validate user input request
+	    if (u.getUsername() == null || u.getUsername().isEmpty() ||
+	        u.getPassword() == null || u.getPassword().isEmpty() ||
+	        u.getRole() == null || u.getRole().isEmpty()) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please check the request JSON. Username/Password/Role is missing.");
+	    }
 
-		if (userLoginService.findUser(usernamecheck) == null) {
+	    // Check if the user name already exists
+	    if (userLoginService.findUser(u.getUsername()) != null) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists.");
+	    }
 
-			UserLogin u1 = userLoginService.saveTheNewUser(u);
+	    // Save the new user
+	    UserLogin newUser = userLoginService.newUserSignUp(u);
 
-			// Save into Teacher table also if the role is "teacher"
-
-			if (u.getRole().equalsIgnoreCase("teacher")) {
-
-				Teacher t1 = new Teacher();
-				t1.setUserid(u.getUserid());
-				teacherService.saveTheNewTeacher(t1);
-
-			}
-
-			// Save into Student table also if the role is "student"
-
-			if (u.getRole().equalsIgnoreCase("student")) {
-
-				Student s1 = new Student();
-				s1.setUserid(u.getUserid());
-				studentService.saveTheNewStudent(s1);
-
-			}
-
-			return ResponseEntity.ok(u1);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username already exists.");
-
-		}
+	    if (newUser != null) {
+	        return ResponseEntity.ok(newUser);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save the new user.");
+	    }
 	}
 
 	// VALIDATE USERNAME AND PASSWORD
 
-	/*
-	 * 
-	 * @PostMapping("/checkuser") public ResponseEntity<?>
-	 * checkIfUserIsPresent(@RequestBody UserDTO u) { UserLogin user =
-	 * userLoginService.findByUsernameAndPasswordAndRole(u.getUsername(),
-	 * u.getPassword(),u.getRole()); if (user == null) { return
-	 * ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist"); }
-	 * else { return ResponseEntity.ok(user); } }
-	 */
-
 	@PostMapping("/checkuser")
 	public ResponseEntity<?> checkIfUserIsPresent(@RequestBody UserDTO u) {
-		UserLogin user = userLoginService.findByUsernameAndPassword(u.getUsername(), u.getPassword());
+	    // Validate Input request
+	    if (u.getUsername() == null || u.getUsername().isEmpty() || u.getPassword() == null || u.getPassword().isEmpty()) {
+	        System.out.println("In if ");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please check the request JSON. Username/Password is missing.");
+	    }
 
-		if (user == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist");
-		} else if (user.getRole().equalsIgnoreCase("student")) {
-			Student studentdata = studentService.findStudentUsingID(user.getUserid());
-			System.out.println("Student id = " + studentdata.getStudentid());
-			List<Enrollment> enrolmentdata = enrollmentService.listAllCoursesByStudentID(studentdata.getStudentid());
+	    // Check if the user exists
+	    UserLogin user = userLoginService.findByUsernameAndPassword(u.getUsername(), u.getPassword());
 
-			System.out.println("\n size = " + enrolmentdata.size());
-			if (studentdata != null) {
-				UserDataDTO finalUserData = new UserDataDTO();
-				finalUserData.setUserdata(user);
-				finalUserData.setStudentid(studentdata.getStudentid());
-				if (enrolmentdata.size() > 0) {
-					finalUserData.setStudent_course_reg_status("true");
-				} else {
-					finalUserData.setStudent_course_reg_status("false");
-				}
+	    if (user == null) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist");
+	    }
 
-				return ResponseEntity.ok(finalUserData);
-			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist");
-			}
-
-		} else if (user.getRole().equalsIgnoreCase("teacher")) {
-
-			Teacher teacherdata = teacherService.findTeacherUsingID(user.getUserid());
-
-			Course coursedata = courseService.getCourseId(teacherdata.getTeacherid());
-
-			if (teacherdata != null) {
-				UserDataDTO finalUserData = new UserDataDTO();
-				finalUserData.setUserdata(user);
-				finalUserData.setTeacherid(teacherdata.getTeacherid());
-
-				if (coursedata != null) {
-					finalUserData.setCourseid(coursedata.getCourseid());
-					finalUserData.setTeachingcourse(coursedata.getCoursename());
-				} else {
-					return ResponseEntity.ok(finalUserData);
-				}
-				return ResponseEntity.ok(finalUserData);
-			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist");
-			}
-
-		} else {
-			return ResponseEntity.ok(user);
-		}
-
+	    // Calling a method in service layer to process user data and role
+	    UserDataDTO userData = userLoginService.processUserData(user);
+	    return ResponseEntity.ok(userData);
 	}
+
 
 	// Get User Details For Viewing and Modification purposes if any
 
 	@GetMapping("/displayuser/{uname}")
-	public UserLogin getUserDetails(@PathVariable("uname") String username) {
+	public ResponseEntity<?> getUserDetails(@PathVariable("uname") String username) {
+		
+		if(username==null|| username.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Please check the JSON request. Username is empty.");
+		}
 
 		UserLogin u2 = userLoginService.getByUsername(username);
 		if (u2 == null) {
-			System.out.println("No user");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No such user in the system.");
+
 		} else {
-			System.out.println(u2.getFirstname());
+			System.out.println(u2.getFirst_name());
 		}
-		return u2;
+		return ResponseEntity.ok(u2);
 	}
 
 	// Updated the Modified details in the database

@@ -48,10 +48,10 @@ public class AnnoucementsControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.post("/announcements/saveall").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(announcementsList)))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].annoucementid").value(1))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].annoucementnote").value("Announcement 1"))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucementid").value(2))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucementnote").value("Announcement 2"));
+				.andExpect(MockMvcResultMatchers.jsonPath("$[0].annoucement_id").value(1))
+				.andExpect(MockMvcResultMatchers.jsonPath("$[0].annoucement_note").value("Announcement 1"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucement_id").value(2))
+				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucement_note").value("Announcement 2"));
 	}
 
 	@Test
@@ -67,9 +67,9 @@ public class AnnoucementsControllerTest {
 		// Compare and test it
 		mockMvc.perform(MockMvcRequestBuilders.get("/announcements/getall"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].annoucementid").value(1))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].annoucementnote").value("Announcement 1"))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucementid").value(2))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucementnote").value("Announcement 2"));
+				.andExpect(MockMvcResultMatchers.jsonPath("$[0].annoucement_id").value(1))
+				.andExpect(MockMvcResultMatchers.jsonPath("$[0].annoucement_note").value("Announcement 1"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucement_id").value(2))
+				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucement_note").value("Announcement 2"));
 	}
 }

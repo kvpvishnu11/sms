@@ -3,21 +3,21 @@ package com.myproj.spring.sms.dto;
 
 public class BrowseCoursesDTO {
 	 
-	private long courseid;
-	private String coursename;
-	public long getCourseid() {
-		return courseid;
+	private long course_id;
+	private String course_name;
+	public long getCourse_id() {
+		return course_id;
 	}
-	public void setCourseid(long courseid) {
-		this.courseid = courseid;
+	public void setCourse_id(long course_id) {
+		this.course_id = course_id;
 	}
-	public String getCoursename() {
-		return coursename;
+	public String getCourse_name() {
+		return course_name;
 	}
-	public void setCoursename(String coursename) {
-		this.coursename = coursename;
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
 	}
-	
+	 
 	
 	
 	

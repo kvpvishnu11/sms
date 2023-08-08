@@ -6,19 +6,34 @@ public class UserDataDTO {
 
 	
 	private UserLogin userdata;
-	private long studentid;
-	private long courseid;
-	private long teacherid;
+	private long student_id;
+	private long course_id;
+	private long teacher_id;
 	private String student_course_reg_status;
-	private String teachingcourse;
-	
-	
-	
-	public String getTeachingcourse() {
-		return teachingcourse;
+	private String teaching_course;
+	public UserLogin getUserdata() {
+		return userdata;
 	}
-	public void setTeachingcourse(String teachingcourse) {
-		this.teachingcourse = teachingcourse;
+	public void setUserdata(UserLogin userdata) {
+		this.userdata = userdata;
+	}
+	public long getStudent_id() {
+		return student_id;
+	}
+	public void setStudent_id(long student_id) {
+		this.student_id = student_id;
+	}
+	public long getCourse_id() {
+		return course_id;
+	}
+	public void setCourse_id(long course_id) {
+		this.course_id = course_id;
+	}
+	public long getTeacher_id() {
+		return teacher_id;
+	}
+	public void setTeacher_id(long teacher_id) {
+		this.teacher_id = teacher_id;
 	}
 	public String getStudent_course_reg_status() {
 		return student_course_reg_status;
@@ -26,36 +41,29 @@ public class UserDataDTO {
 	public void setStudent_course_reg_status(String student_course_reg_status) {
 		this.student_course_reg_status = student_course_reg_status;
 	}
-	public void setCourseid(long courseid) {
-		this.courseid = courseid;
+	public String getTeaching_course() {
+		return teaching_course;
 	}
-	public void setTeacherid(long teacherid) {
-		this.teacherid = teacherid;
+	public void setTeaching_course(String teaching_course) {
+		this.teaching_course = teaching_course;
 	}
-	public UserLogin getUserdata() {
-		return userdata;
-	}
-	public void setUserdata(UserLogin userdata) {
+	public UserDataDTO(UserLogin userdata, long student_id, long course_id, long teacher_id,
+			String student_course_reg_status, String teaching_course) {
+		super();
 		this.userdata = userdata;
+		this.student_id = student_id;
+		this.course_id = course_id;
+		this.teacher_id = teacher_id;
+		this.student_course_reg_status = student_course_reg_status;
+		this.teaching_course = teaching_course;
 	}
-	public Long getStudentid() {
-		return studentid;
+	public UserDataDTO() {
+		super();
 	}
-	public void setStudentid(long studentid) {
-		this.studentid = studentid;
-	}
-	public Long getCourseid() {
-		return courseid;
-	}
-	public void setCourseid(Long courseid) {
-		this.courseid = courseid;
-	}
-	public Long getTeacherid() {
-		return teacherid;
-	}
-	public void setTeacherid(Long teacherid) {
-		this.teacherid = teacherid;
-	}
+	
+	
+	
+	 
 	
 	
 	

@@ -26,31 +26,39 @@ public class EnrollmentController {
 	private EnrollmentService enrollmentService;
 	
 	@PostMapping("/save")
-	public EnrollmentDTO saveAllEnrollments(@RequestBody EnrollmentDTO e) {
-		return enrollmentService.saveEnrollments(e);
-		
-	}
-	
-	// Browsing the courses using the student id
-	 
-	@GetMapping("/browse/{student_id}")
-	public List<BrowseCoursesDTO> browseEnrollments(@PathVariable("student_id") long student_id) {
-	    List<Enrollment> originalEnrollments = enrollmentService.listAllCoursesByStudentID(student_id);
-
-	    List<BrowseCoursesDTO> filteredCourses = new ArrayList<>();
-
-	    for (Enrollment enrollment : originalEnrollments) {
-	        BrowseCoursesDTO filteredCourse = new BrowseCoursesDTO();
-	        filteredCourse.setCourseid(enrollment.getCourseid());
-	        filteredCourse.setCoursename(enrollment.getCoursename());
-	        filteredCourses.add(filteredCourse);
+	public ResponseEntity<?> saveAllEnrollments(@RequestBody EnrollmentDTO e) {
+	    if (e == null) {
+	        return ResponseEntity.badRequest().body("Request body is empty.");
+	    } else {
+	        EnrollmentDTO savedEnrollment = enrollmentService.saveEnrollments(e);
+	        return ResponseEntity.ok(savedEnrollment);
 	    }
-
-	    return filteredCourses;
 	}
 
+	// Browsing the courses using the student id
+	@GetMapping("/browse/{student_id}")
+	public ResponseEntity<?> browseEnrollments(@PathVariable("student_id") long student_id) {
+	    if (student_id <= 0) {
+	        return ResponseEntity.badRequest().body("Invalid Student ID.");
+	    } else {
+	        List<Enrollment> originalEnrollments = enrollmentService.listAllCoursesByStudentID(student_id);
 
-		
+	        if (originalEnrollments.isEmpty()) {
+	            return ResponseEntity.ok("No courses found for the given student id.");
+	        } else {
+	            List<BrowseCoursesDTO> filteredCourses = new ArrayList<>();
+
+	            for (Enrollment enrollment : originalEnrollments) {
+	                BrowseCoursesDTO filteredCourse = new BrowseCoursesDTO();
+	                filteredCourse.setCourse_id(enrollment.getCourse_id());
+	                filteredCourse.setCourse_name(enrollment.getCourse_name());
+	                filteredCourses.add(filteredCourse);
+	            }
+
+	            return ResponseEntity.ok(filteredCourses);
+	        }
+	    }
+	}	
 	}
 
 

@@ -12,45 +12,19 @@ public class UserLogin {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long userid;
+	private long user_id;
 	private String username;
 	private String password;
-	private String firstname;
-	private String lastname;
-	private String phoneno;
+	private String first_name;
+	private String last_name;
+	private String phone_no;
 	private String email;
 	private String role;
-	
-	
-	
-	public UserLogin(long userid, String username, String password, String firstname, String lastname, String phoneno,
-			String email, String role) {
-		super();
-		this.userid = userid;
-		this.username = username;
-		this.password = password;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.phoneno = phoneno;
-		this.email = email;
-		this.role = role;
+	public long getUser_id() {
+		return user_id;
 	}
-	
-	public UserLogin() {
-		super();
-	}
-
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	public long getUserid() {
-		return userid;
-	}
-	public void setUserid(long userid) {
-		this.userid = userid;
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
 	}
 	public String getUsername() {
 		return username;
@@ -64,23 +38,23 @@ public class UserLogin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getFirstname() {
-		return firstname;
+	public String getFirst_name() {
+		return first_name;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
 	}
-	public String getLastname() {
-		return lastname;
+	public String getLast_name() {
+		return last_name;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
-	public String getPhoneno() {
-		return phoneno;
+	public String getPhone_no() {
+		return phone_no;
 	}
-	public void setPhoneno(String phoneno) {
-		this.phoneno = phoneno;
+	public void setPhone_no(String phone_no) {
+		this.phone_no = phone_no;
 	}
 	public String getEmail() {
 		return email;
@@ -88,6 +62,28 @@ public class UserLogin {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public UserLogin(long user_id, String username, String password, String first_name, String last_name,
+			String phone_no, String email, String role) {
+		super();
+		this.user_id = user_id;
+		this.username = username;
+		this.password = password;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.phone_no = phone_no;
+		this.email = email;
+		this.role = role;
+	}
+	public UserLogin() {
+		super();
+	}
 	
+	
+	 
 }

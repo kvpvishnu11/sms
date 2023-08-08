@@ -9,7 +9,7 @@ import com.myproj.spring.sms.entities.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-	@Query(value = "SELECT * FROM student WHERE userid = :id", nativeQuery = true)
+	@Query(value = "SELECT * FROM student WHERE user_id = :id", nativeQuery = true)
 	public Student findByStudentid(Long id);
 	
 	

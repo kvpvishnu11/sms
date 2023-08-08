@@ -47,16 +47,16 @@ public class CourseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/course/getall"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].courseid").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].coursename").value("Course 1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].coursecredits").value("3 credits"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].availableseats").value(20))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].teacherid").value(1001))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].courseid").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].coursename").value("Course 2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].coursecredits").value("4 credits"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].availableseats").value(15))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].teacherid").value(1002));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].course_id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].course_name").value("Course 1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].course_credits").value("3 credits"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].available_seats").value(20))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].teacher_id").value(1001))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].course_id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].course_name").value("Course 2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].course_credits").value("4 credits"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].available_seats").value(15))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].teacher_id").value(1002));
     }
 
     @Test
@@ -75,16 +75,16 @@ public class CourseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(coursesList)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].courseid").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].coursename").value("Course 1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].coursecredits").value("3 credits"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].availableseats").value(20))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].teacherid").value(1001))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].courseid").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].coursename").value("Course 2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].coursecredits").value("4 credits"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].availableseats").value(15))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].teacherid").value(1002));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].course_id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].course_name").value("Course 1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].course_credits").value("3 credits"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].available_seats").value(20))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].teacher_id").value(1001))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].course_id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].course_name").value("Course 2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].course_credits").value("4 credits"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].available_seats").value(15))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].teacher_id").value(1002));
     }
 }
 

@@ -13,7 +13,7 @@ import com.myproj.spring.sms.entities.Student;
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
-	@Query(value = "SELECT * FROM enrollment WHERE studentid = :studentId", nativeQuery = true)
+	@Query(value = "SELECT * FROM enrollment WHERE student_id = :studentId", nativeQuery = true)
 	public List<Enrollment> findAllByStudentid(@Param("studentId") Long studentId);
 
 	 

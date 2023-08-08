@@ -2,6 +2,7 @@ package com.myproj.spring.sms.service;
 
 import java.util.List;
 
+import com.myproj.spring.sms.dto.QuizSubmissionDTO;
 import com.myproj.spring.sms.entities.Quiz;
 
 public interface QuizService {
@@ -12,4 +13,5 @@ public interface QuizService {
 	
 	public void deleteQuiz(long courseid);
 
+	public int calculateMarks(List<QuizSubmissionDTO> quizSubmissions,long courseId);
 }

@@ -10,28 +10,29 @@ public class Annoucements {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long annoucementid;
-	private String annoucementnote;
-	public long getAnnoucementid() {
-		return annoucementid;
+	private long annoucement_id;
+	private String annoucement_note;
+	public long getAnnoucement_id() {
+		return annoucement_id;
 	}
-	public void setAnnoucementid(long annoucementid) {
-		this.annoucementid = annoucementid;
+	public void setAnnoucement_id(long annoucement_id) {
+		this.annoucement_id = annoucement_id;
 	}
-	public String getAnnoucementnote() {
-		return annoucementnote;
+	public String getAnnoucement_note() {
+		return annoucement_note;
 	}
-	public void setAnnoucementnote(String annoucementnote) {
-		this.annoucementnote = annoucementnote;
+	public void setAnnoucement_note(String annoucement_note) {
+		this.annoucement_note = annoucement_note;
 	}
-	public Annoucements(long annoucementid, String annoucementnote) {
+	public Annoucements(long annoucement_id, String annoucement_note) {
 		super();
-		this.annoucementid = annoucementid;
-		this.annoucementnote = annoucementnote;
+		this.annoucement_id = annoucement_id;
+		this.annoucement_note = annoucement_note;
 	}
 	public Annoucements() {
 		super();
 	}
+	 
 	
 	
 	

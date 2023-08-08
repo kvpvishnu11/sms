@@ -43,7 +43,7 @@ public class EnrollmentControllerTest {
     @Test
     public void testSaveAllEnrollments() throws Exception {
         EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
-        enrollmentDTO.setStudentid(1);
+        enrollmentDTO.setStudent_id(1);
         
         // Prepare test data
         Course course1 = new Course();
@@ -66,11 +66,11 @@ public class EnrollmentControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(enrollmentDTO)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.studentid").value(enrollmentDTO.getStudentid()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[0].courseid").value(course1.getCourseid()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[0].coursename").value(course1.getCoursename()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[1].courseid").value(course2.getCourseid()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[1].coursename").value(course2.getCoursename()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.student_id").value(enrollmentDTO.getStudent_id()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[0].course_id").value(course1.getCourse_id()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[0].course_name").value(course1.getCourse_name()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[1].course_id").value(course2.getCourse_id()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[1].course_name").value(course2.getCourse_name()));
      }
 
     @Test

@@ -11,20 +11,20 @@ import com.myproj.spring.sms.entities.Teacher;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    @Query("SELECT NEW com.myproj.spring.sms.dto.StudentListDTOImpl(s.studentid, u.firstname, u.lastname) " +
+    @Query("SELECT NEW com.myproj.spring.sms.dto.StudentListDTOImpl(s.student_id, u.first_name, u.last_name) " +
            "FROM Enrollment e " +
-           "JOIN Student s ON e.studentid = s.studentid " +
-           "JOIN Course c ON e.courseid = c.courseid " +
-           "JOIN Teacher t ON c.teacherid = t.teacherid " +
-           "JOIN UserLogin u ON s.userid = u.userid " +
-           "WHERE t.teacherid = :teacherId")
+           "JOIN Student s ON e.student_id = s.student_id " +
+           "JOIN Course c ON e.course_id = c.course_id " +
+           "JOIN Teacher t ON c.teacher_id = t.teacher_id " +
+           "JOIN UserLogin u ON s.user_id = u.user_id " +
+           "WHERE t.teacher_id = :teacherId")
     public List<StudentListDTOImpl> fetchStudentsByTeacherId(@Param("teacherId") long teacherId);
     
-    @Query("SELECT NEW com.myproj.spring.sms.dto.TeacherListDTOImpl(t.teacherid, u.firstname, u.lastname) " +
+    @Query("SELECT NEW com.myproj.spring.sms.dto.TeacherListDTOImpl(t.teacher_id, u.first_name, u.last_name) " +
             "FROM Teacher t " +
-            "JOIN UserLogin u ON t.userid = u.userid")
+            "JOIN UserLogin u ON t.user_id = u.user_id")
     public List<TeacherListDTOImpl> listAllTeachers();
     
-    @Query(value = "SELECT * FROM teacher WHERE userid = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM teacher WHERE user_id = :id", nativeQuery = true)
     public Teacher findByTeacherid(Long id);
 }

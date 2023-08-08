@@ -10,27 +10,28 @@ public class Teacher {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long teacherid;
-	private long userid;
-	public long getTeacherid() {
-		return teacherid;
+	private long teacher_id;
+	private long user_id;
+	public long getTeacher_id() {
+		return teacher_id;
 	}
-	public void setTeacherid(long teacherid) {
-		this.teacherid = teacherid;
+	public void setTeacher_id(long teacher_id) {
+		this.teacher_id = teacher_id;
 	}
-	public long getUserid() {
-		return userid;
+	public long getUser_id() {
+		return user_id;
 	}
-	public void setUserid(long userid) {
-		this.userid = userid;
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
 	}
-	public Teacher(long teacherid, long userid) {
+	public Teacher(long teacher_id, long user_id) {
 		super();
-		this.teacherid = teacherid;
-		this.userid = userid;
+		this.teacher_id = teacher_id;
+		this.user_id = user_id;
 	}
 	public Teacher() {
 		super();
 	}
+	 
 	
 }

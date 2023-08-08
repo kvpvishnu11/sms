@@ -1,28 +1,33 @@
 package com.myproj.spring.sms.dto;
 
 public class StudentListDTOImpl implements StudentListDTO {
-    private Long studentid;
-    private String firstname;
-    private String lastname;
+    private Long student_id;
+    private String first_name;
+    private String last_name;
+	public Long getStudent_id() {
+		return student_id;
+	}
+	public void setStudent_id(Long student_id) {
+		this.student_id = student_id;
+	}
+	public String getFirst_name() {
+		return first_name;
+	}
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+	public String getLast_name() {
+		return last_name;
+	}
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+	public StudentListDTOImpl(Long student_id, String first_name, String last_name) {
+		super();
+		this.student_id = student_id;
+		this.first_name = first_name;
+		this.last_name = last_name;
+	}
 
-    public StudentListDTOImpl(Long studentid, String firstname, String lastname) {
-        this.studentid = studentid;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
-
-    @Override
-    public Long getStudentid() {
-        return studentid;
-    }
-
-    @Override
-    public String getFirstname() {
-        return firstname;
-    }
-
-    @Override
-    public String getLastname() {
-        return lastname;
-    }
+    
 }

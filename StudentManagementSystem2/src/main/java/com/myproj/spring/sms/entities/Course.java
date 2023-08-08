@@ -10,52 +10,52 @@ public class Course {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long courseid;
-	private String coursename;
-	private String coursecredits;
-	private int availableseats;
-	private long teacherid;
-	public Long getCourseid() {
-		return courseid;
+	private Long course_id;
+	private String course_name;
+	private String course_credits;
+	private int available_seats;
+	private long teacher_id;
+	public Long getCourse_id() {
+		return course_id;
 	}
-	public void setCourseid(Long courseid) {
-		this.courseid = courseid;
+	public void setCourse_id(Long course_id) {
+		this.course_id = course_id;
 	}
-	public String getCoursename() {
-		return coursename;
+	public String getCourse_name() {
+		return course_name;
 	}
-	public void setCoursename(String coursename) {
-		this.coursename = coursename;
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
 	}
-	public String getCoursecredits() {
-		return coursecredits;
+	public String getCourse_credits() {
+		return course_credits;
 	}
-	public void setCoursecredits(String coursecredits) {
-		this.coursecredits = coursecredits;
+	public void setCourse_credits(String course_credits) {
+		this.course_credits = course_credits;
 	}
-	public int getAvailableseats() {
-		return availableseats;
+	public int getAvailable_seats() {
+		return available_seats;
 	}
-	public void setAvailableseats(int availableseats) {
-		this.availableseats = availableseats;
+	public void setAvailable_seats(int available_seats) {
+		this.available_seats = available_seats;
 	}
-	public long getTeacherid() {
-		return teacherid;
+	public long getTeacher_id() {
+		return teacher_id;
 	}
-	public void setTeacherid(long teacherid) {
-		this.teacherid = teacherid;
+	public void setTeacher_id(long teacher_id) {
+		this.teacher_id = teacher_id;
 	}
-	public Course(Long courseid, String coursename, String coursecredits, int availableseats, long teacherid) {
+	public Course(Long course_id, String course_name, String course_credits, int available_seats, long teacher_id) {
 		super();
-		this.courseid = courseid;
-		this.coursename = coursename;
-		this.coursecredits = coursecredits;
-		this.availableseats = availableseats;
-		this.teacherid = teacherid;
+		this.course_id = course_id;
+		this.course_name = course_name;
+		this.course_credits = course_credits;
+		this.available_seats = available_seats;
+		this.teacher_id = teacher_id;
 	}
 	public Course() {
 		super();
 	}
-	
+	 
 	
 }

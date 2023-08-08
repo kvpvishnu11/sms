@@ -12,11 +12,11 @@ import com.myproj.spring.sms.entities.Quiz;
 
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
 	
-	 @Query(value = "SELECT * FROM quiz WHERE courseid = :courseid", nativeQuery = true)
+	 @Query(value = "SELECT * FROM quiz WHERE course_id = :courseid", nativeQuery = true)
 	    public List<Quiz> getQuizQuestions(@Param("courseid") long courseid);
 	 	
 	 @Modifying
-	 @Query(value = "DELETE FROM quiz WHERE courseid = :courseid", nativeQuery = true)
+	 @Query(value = "DELETE FROM quiz WHERE course_id = :courseid", nativeQuery = true)
 	 void deleteQuizQuestionsByCourseId(@Param("courseid") long courseid);
 
 

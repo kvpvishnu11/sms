@@ -6,13 +6,14 @@ import com.myproj.spring.sms.entities.Course;
 
 public class EnrollmentDTO {
 	
-	private long studentid;
+	private long student_id;
 	private List<Course> courseList;
-	public long getStudentid() {
-		return studentid;
+	 
+	public long getStudent_id() {
+		return student_id;
 	}
-	public void setStudentid(long studentid) {
-		this.studentid = studentid;
+	public void setStudent_id(long student_id) {
+		this.student_id = student_id;
 	}
 	public List<Course> getCourseList() {
 		return courseList;

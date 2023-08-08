@@ -11,7 +11,7 @@ import com.myproj.spring.sms.entities.CourseMaterial;
 public interface CourseMaterialRepository extends JpaRepository<CourseMaterial, Long> {
 	
 	
-	  @Query(value = "SELECT * FROM coursematerial WHERE courseid = :courseid", nativeQuery = true)
+	  @Query(value = "SELECT * FROM coursematerial WHERE course_id = :courseid", nativeQuery = true)
 	    public List<CourseMaterial> getByCourseID(@Param("courseid") long courseid);
 
 }

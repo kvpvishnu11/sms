@@ -12,14 +12,14 @@ public class CourseMaterial {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long coursematerialid;
+	private long coursematerial_id;
 	private String url;
-	private long courseid;
-	public long getCoursematerialid() {
-		return coursematerialid;
+	private long course_id;
+	public long getCoursematerial_id() {
+		return coursematerial_id;
 	}
-	public void setCoursematerialid(long coursematerialid) {
-		this.coursematerialid = coursematerialid;
+	public void setCoursematerial_id(long coursematerial_id) {
+		this.coursematerial_id = coursematerial_id;
 	}
 	public String getUrl() {
 		return url;
@@ -27,21 +27,22 @@ public class CourseMaterial {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public long getCourseid() {
-		return courseid;
+	public long getCourse_id() {
+		return course_id;
 	}
-	public void setCourseid(long courseid) {
-		this.courseid = courseid;
+	public void setCourse_id(long course_id) {
+		this.course_id = course_id;
 	}
-	public CourseMaterial(long coursematerialid, String url, long courseid) {
+	public CourseMaterial(long coursematerial_id, String url, long course_id) {
 		super();
-		this.coursematerialid = coursematerialid;
+		this.coursematerial_id = coursematerial_id;
 		this.url = url;
-		this.courseid = courseid;
+		this.course_id = course_id;
 	}
 	public CourseMaterial() {
 		super();
 	}
+	 
 	
 	
 

@@ -8,11 +8,6 @@ import com.myproj.spring.sms.entities.UserLogin;
  
 public interface UserLoginRepository extends JpaRepository<UserLogin, Long> {
 	
-	/*
-	@Query(value = "SELECT * FROM UserLogin WHERE username = :username AND password = :password AND role = :role", nativeQuery = true)
-	public UserLogin findByUsernameAndPasswordAndRole(String username, String password, String role);
-	*/
-	
 	@Query(value = "SELECT * FROM user_login WHERE username = :username AND password = :password", nativeQuery = true)
 	public UserLogin findByUsernameAndPassword(String username, String password);
 	

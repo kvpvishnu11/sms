@@ -23,11 +23,11 @@ This is a Student mangement System.
 
 11. If above steps are correctly followed, then the server will be up on 8080 port. Now, APIs will be available for Front-end code to access.
 
-12. For Front end, clone git URL in VS code. Open templates folder. Run it on Server 5500.
+12. For Front end, clone git URL in VS code. Open templates folder. Install Live Server extension in VS Code. Open "homelogin.html"  page. On bottom right, you will see Go Live. Click it. The page will be Run on localhost Server at Port 5500.
 
 13. CORS has been configured in back end server code to access it from "http://localhost:5500/"
 
-14. Open http://localhost:5500/homelogin.html and use the application.
+14. You will see our application login form at http://localhost:5500/homelogin.html and you are good to start off with the application.
 
 If this is too lengthy, please let us know, we are currently working on deploying it to Google Cloud, we will provide you with the application endpoint directly.
 

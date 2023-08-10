@@ -128,7 +128,23 @@ public class QuizControllerTest {
         return null;
     }
 
-  
+  /** Negative test scenarios **/
+    @Test
+    public void testDeleteQuizQuestionsWithNegativeCourseId() throws Exception {
+        long courseId = -1L; // Negative course ID
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/quiz/deletequiz/{cid}", courseId))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()); // Bad request is expected here 
+    }
+
+    @Test
+    public void testGetQuizQuestionsWithNegativeCourseId() throws Exception {
+        long courseId = -1L; // Negative course ID
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/quiz/fetchquiz/{cid}", courseId))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()); // Expecting a bad request  
+    }
+
 
 
 }

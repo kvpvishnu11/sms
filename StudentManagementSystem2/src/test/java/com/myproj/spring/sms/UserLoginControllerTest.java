@@ -9,6 +9,7 @@ import com.myproj.spring.sms.service.StudentService;
 import com.myproj.spring.sms.service.TeacherService;
 import com.myproj.spring.sms.service.UserLoginService;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -57,9 +58,9 @@ public class UserLoginControllerTest {
 
 
     
-    /** Testing if the user can be found or not **/
+    /** Testing to display the user details using username **/
     @Test
-    public void testGetUserDetails_UserFound() throws Exception {
+    public void testGetUserDetails() throws Exception {
         // Prepare test data
         UserLogin user = new UserLogin(1, "testuser", "testpwd", "avinash", "kun", "1234567890",
                 "avi.soe@example.com", "student");
@@ -91,7 +92,42 @@ public class UserLoginControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.username").value(existingUser.getUsername()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(existingUser.getEmail()));
     }
+    
+    /** Testing for signing up a new user **/
+    @Test
+    public void testSaveNewUserSignup() throws Exception {
+        // Prepare test data for the request
+        UserLogin newUser = new UserLogin();
+        newUser.setUsername("newuser");
+        newUser.setPassword("newpassword");
+        newUser.setRole("student");
 
+        // Mock the behavior for checking if the username exists
+        when(userLoginService.findUser("newuser")).thenReturn(null);
+
+        // Mock the behavior for saving the new user
+        when(userLoginService.newUserSignUp(Mockito.any(UserLogin.class))).thenReturn(newUser);
+
+        // Perform the POST request and assert the response
+        mockMvc.perform(MockMvcRequestBuilders.post("/userlogin/signupuser")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newUser)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value(newUser.getUsername()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.role").value(newUser.getRole()));
+    }
+    
+    /** Test negative scenario - No use found scenario Fail request **/
+    @Test
+    public void testGetUserDetailsWithNonExistentUsername() throws Exception {
+        // Mock the behavior for a non-existent username request
+        when(userLoginService.getByUsername("nonexistentuser")).thenReturn(null);
+
+        // Perform the GET request with a non-existent username
+        mockMvc.perform(MockMvcRequestBuilders.get("/userlogin/displayuser/{uname}", "nonexistentuser"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().string(containsString("No such user in the system.")));
+    }
 
 
 

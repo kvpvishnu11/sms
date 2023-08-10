@@ -75,4 +75,18 @@ public class AnnoucementsControllerTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucement_id").value(2))
 				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucement_note").value("Announcement 2"));
 	}
+	
+	/** Testing if posting an empty list of announcements **/
+	/** Request Failure - Bad Request scenario **/
+    @Test
+    public void testPostEmptyAnnouncementsList() throws Exception {
+        List<Annoucements> emptyAnnouncementsList = new ArrayList<>();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/announcements/saveall")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(emptyAnnouncementsList)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("Request body is empty."));
+    }
+	  
 }

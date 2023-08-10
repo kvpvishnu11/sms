@@ -14,6 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,4 +67,15 @@ public class CourseMaterialControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].url").value("https://example.com/material2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].course_id").value(1001));
     }
+    /** Testing fetching course material with a negative course ID **/
+    /** Negative scenario - Bad Request **/
+    @Test
+    public void testGetMaterialWithNegativeCourseID() throws Exception {
+        long negativeCourseId = -1L; // Negative course ID
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/coursematerial/getcontent/{cid}", negativeCourseId))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+    
+   
 }

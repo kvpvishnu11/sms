@@ -19,6 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,4 +93,20 @@ public class EnrollmentControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/enrollment/browse/{student_id}", studentId))
                 .andExpect(MockMvcResultMatchers.status().isOk());
      }
+    
+    @Test
+    public void testSaveAllEnrollmentsWithEmptyRequestBody() throws Exception {
+        EnrollmentDTO emptyEnrollment = new EnrollmentDTO(); // Empty enrollment object
+
+        // Mocking behavior of the service method
+        Mockito.when(enrollmentService.saveEnrollments(Mockito.any(EnrollmentDTO.class)))
+                .thenReturn(null); // Simulating a failed enrollment saving
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/enrollment/save")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(emptyEnrollment)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string(containsString("Request body is empty.")));
+    }
+
 }

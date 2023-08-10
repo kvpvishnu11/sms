@@ -33,7 +33,7 @@ public class EnrollmentController {
 	/** Saving new enrollments which are done by a Student during registration **/
 	@PostMapping("/save")
 	public ResponseEntity<?> saveAllEnrollments(@RequestBody EnrollmentDTO e) {
-		if (e == null) {
+		if (e == null || e.getCourseList().isEmpty()) {
 			return ResponseEntity.badRequest().body("Request body is empty.");
 		} else {
 			EnrollmentDTO savedEnrollment = enrollmentService.saveEnrollments(e);

@@ -89,5 +89,17 @@ public class CourseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].available_seats").value(15))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].teacher_id").value(1002));
     }
+    /** Testing if saving an empty list of courses **/
+    /** Bad request - Fail scenario **/
+    @Test
+    public void testSaveEmptyCoursesList() throws Exception {
+        List<Course> emptyCoursesList = new ArrayList<>();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/course/saveall")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(emptyCoursesList)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("Request body is empty."));
+    }
 }
 

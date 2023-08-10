@@ -28,7 +28,7 @@ jobs:
       run: mvn -B package --file StudentManagementSystem2/pom.xml
 
     - name: Build Docker image
-      run: docker build -t kvpvishnu11/my-app-image:latest StudentManagementSystem2/
+      run: docker build -t kvpvishnu11/sms:latest StudentManagementSystem2/
 
     - name: Log in to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}

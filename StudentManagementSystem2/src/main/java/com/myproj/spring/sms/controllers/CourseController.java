@@ -13,29 +13,35 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myproj.spring.sms.entities.Course;
 import com.myproj.spring.sms.service.CourseService;
 
+/**
+ * This controller handles the requests to save the new courses and get the
+ * existing courses in system
+ **/
+
 @RestController
 @RequestMapping("/course")
 public class CourseController {
-	
+
 	@Autowired
 	private CourseService courseService;
-	
+
+	/** Get all courses in system **/
 	@GetMapping("/getall")
-	public List<Course> getAllCourses(){
-		
-	 return	courseService.listAllCourses();
-		
-	}
-	
-	@PostMapping("/saveall")
-	public ResponseEntity<?> saveCourses(@RequestBody List<Course> c) {
-	    if (c == null || c.isEmpty()) {
-	        return ResponseEntity.badRequest().body("Request body is empty.");
-	    } else {
-	        List<Course> savedCourses = courseService.postAllCourses(c);
-	        return ResponseEntity.ok(savedCourses);
-	    }
+	public List<Course> getAllCourses() {
+
+		return courseService.listAllCourses();
+
 	}
 
+	/** Saving new courses **/
+	@PostMapping("/saveall")
+	public ResponseEntity<?> saveCourses(@RequestBody List<Course> c) {
+		if (c == null || c.isEmpty()) {
+			return ResponseEntity.badRequest().body("Request body is empty.");
+		} else {
+			List<Course> savedCourses = courseService.postAllCourses(c);
+			return ResponseEntity.ok(savedCourses);
+		}
+	}
 
 }

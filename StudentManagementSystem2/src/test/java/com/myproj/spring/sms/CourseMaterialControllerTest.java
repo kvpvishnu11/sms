@@ -5,8 +5,6 @@ import com.myproj.spring.sms.controllers.CourseMaterialController;
 import com.myproj.spring.sms.entities.CourseMaterial;
 import com.myproj.spring.sms.service.CourseMaterialService;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,11 +29,7 @@ public class CourseMaterialControllerTest {
     @MockBean
     private CourseMaterialService courseMaterialService;
     
-    // We are Following 3 steps in every test case here
-    // Preparing the test data for my service method 
-    // Mocking my service method
-    // Comparing the result 
-
+    /** Testing if all the course material can be saved **/
     @Test
     public void testSaveNewMaterial() throws Exception {
         CourseMaterial cm = new CourseMaterial(1L, "https://example.com/material1", 1001);
@@ -50,6 +44,8 @@ public class CourseMaterialControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("https://example.com/material1"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.course_id").value(1001));
     }
+    
+    /** Testing if all the course material can be fetched **/
 
     @Test
     public void testGetMaterial() throws Exception {

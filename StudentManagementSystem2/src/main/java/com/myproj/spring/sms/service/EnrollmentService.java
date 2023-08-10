@@ -1,5 +1,7 @@
 package com.myproj.spring.sms.service;
 
+/** Service interface which contains methods for saving new enrollments and getting list of courses for a student **/
+
 import java.util.List;
 
 import com.myproj.spring.sms.dto.BrowseCoursesDTO;

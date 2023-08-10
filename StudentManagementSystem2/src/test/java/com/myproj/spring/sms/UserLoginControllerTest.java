@@ -57,7 +57,7 @@ public class UserLoginControllerTest {
 
 
     
-
+    /** Testing if the user can be found or not **/
     @Test
     public void testGetUserDetails_UserFound() throws Exception {
         // Prepare test data
@@ -73,7 +73,7 @@ public class UserLoginControllerTest {
                 .andExpect(MockMvcResultMatchers.content().json("{\"user_id\":1,\"username\":\"testuser\",\"password\":\"testpwd\",\"first_name\":\"avinash\",\"last_name\":\"kun\",\"phone_no\":\"1234567890\",\"email\":\"avi.soe@example.com\",\"role\":\"student\"}"));
     }
 
-
+    /** Testing if the user details can be updated **/
     @Test
     public void testUpdateUserDetails() throws Exception {
         // Prepare test data

@@ -14,39 +14,44 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myproj.spring.sms.entities.CourseMaterial;
 import com.myproj.spring.sms.service.CourseMaterialService;
 
+/**
+ * This controller handles the requests to save the new course material & get
+ * existing course material from system
+ **/
+
 @RestController
 @RequestMapping("/coursematerial")
 public class CourseMaterialController {
-	
+
 	@Autowired
 	private CourseMaterialService courseMaterialService;
-	
+
+	/** Posting new course material for a course **/
 	@PostMapping("/savematerial")
 	public ResponseEntity<?> saveNewMaterial(@RequestBody CourseMaterial cm) {
-	    if (cm == null) {
-	        return ResponseEntity.badRequest().body("Request body is empty.");
-	    } else {
-	        CourseMaterial savedMaterial = courseMaterialService.postNewMaterial(cm);
-	        return ResponseEntity.ok(savedMaterial);
-	    }
+		if (cm == null) {
+			return ResponseEntity.badRequest().body("Request body is empty.");
+		} else {
+			CourseMaterial savedMaterial = courseMaterialService.postNewMaterial(cm);
+			return ResponseEntity.ok(savedMaterial);
+		}
 	}
 
+	/** Get the course material for a course using its course id **/
 	@GetMapping("/getcontent/{cid}")
 	public ResponseEntity<?> getMaterial(@PathVariable("cid") Long courseId) {
-	    // Check if the courseId is null or invalid
-	    if (courseId == null || courseId <= 0) {
-	        return ResponseEntity.badRequest().body("Invalid Course ID.");
-	    }
+		// Check if the courseId is null or invalid
+		if (courseId == null || courseId <= 0) {
+			return ResponseEntity.badRequest().body("Invalid Course ID.");
+		}
 
-	     
-	    List<CourseMaterial> courseMaterials = courseMaterialService.getCourseMaterial(courseId);
-	    if (courseMaterials == null || courseMaterials.isEmpty()) {
-	        return ResponseEntity.badRequest().body("No such Course ID or No content available for that course.");
+		List<CourseMaterial> courseMaterials = courseMaterialService.getCourseMaterial(courseId);
+		if (courseMaterials == null || courseMaterials.isEmpty()) {
+			return ResponseEntity.badRequest().body("No such Course ID or No content available for that course.");
 
-	    }
+		}
 
-	     
-	    return ResponseEntity.ok(courseMaterials);
+		return ResponseEntity.ok(courseMaterials);
 	}
 
 }

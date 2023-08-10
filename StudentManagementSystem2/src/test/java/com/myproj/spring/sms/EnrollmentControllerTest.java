@@ -39,18 +39,22 @@ public class EnrollmentControllerTest {
     // Mocking my service method
     // Comparing the result 
 
-
+ 
+    /** Testing if all Enrollments can be saved **/
     @Test
     public void testSaveAllEnrollments() throws Exception {
-        EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
-        enrollmentDTO.setStudent_id(1);
-        
-        // Prepare test data
+    	EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
+        enrollmentDTO.setStudentId(1);
+
+        // Prepare test data for two courses
         Course course1 = new Course();
-        // Set properties for course1
+        course1.setCourse_id((long) 101);
+        course1.setCourse_name("Mathematics");
+
         Course course2 = new Course();
-        // Set properties for course2
-        
+        course2.setCourse_id((long) 102);
+        course2.setCourse_name("History");
+
         List<Course> courseList = new ArrayList<>();
         courseList.add(course1);
         courseList.add(course2);
@@ -71,8 +75,9 @@ public class EnrollmentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[0].course_name").value(course1.getCourse_name()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[1].course_id").value(course2.getCourse_id()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.courseList[1].course_name").value(course2.getCourse_name()));
-     }
-
+     } 
+    
+    /** Testing if all the enrollments can be browsed **/
     @Test
     public void testBrowseEnrollments() throws Exception {
         long studentId = 1;

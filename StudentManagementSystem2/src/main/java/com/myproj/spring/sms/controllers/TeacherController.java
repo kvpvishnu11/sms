@@ -14,29 +14,36 @@ import com.myproj.spring.sms.dto.StudentListDTOImpl;
 import com.myproj.spring.sms.dto.TeacherListDTOImpl;
 import com.myproj.spring.sms.service.TeacherService;
 
+/**
+ * This controller handles the requests to fetch students enrolled in that
+ * teacher's course and get all teachers
+ **/
+
 @RestController
 @RequestMapping("/teacher")
 public class TeacherController {
-	
+
 	@Autowired
 	private TeacherService teacherService;
-	
+
+	/** Fetching list of students from a teacher id **/
 	@GetMapping("/fetchstudents/{teacherid}")
 	public ResponseEntity<?> displayListOfStudentsFromTeacherID(@PathVariable("teacherid") Long teacherid) {
-	    //  Check if the teacher id is null or invalid
-	    if (teacherid == null || teacherid <= 0) {
-	        return ResponseEntity.badRequest().body("Invalid Teacher ID.");
-	    }
-	    List<StudentListDTOImpl> students = teacherService.getStudents(teacherid);    
-	    if (students == null || students.isEmpty()) {
-	        return ResponseEntity.badRequest().body("No students found for the given teacher ID.");
-	    }
-	    return ResponseEntity.ok(students);
+		// Check if the teacher id is null or invalid
+		if (teacherid == null || teacherid <= 0) {
+			return ResponseEntity.badRequest().body("Invalid Teacher ID.");
+		}
+		List<StudentListDTOImpl> students = teacherService.getStudents(teacherid);
+		if (students == null || students.isEmpty()) {
+			return ResponseEntity.badRequest().body("No students found for the given teacher ID.");
+		}
+		return ResponseEntity.ok(students);
 	}
-	
+
+	/** List all teachers present in the DB on Admin Portal **/
 	@GetMapping("/getall")
-	public List<TeacherListDTOImpl> displayAllTeachers(){
-		
+	public List<TeacherListDTOImpl> displayAllTeachers() {
+
 		return teacherService.listAllTeachers();
 	}
 

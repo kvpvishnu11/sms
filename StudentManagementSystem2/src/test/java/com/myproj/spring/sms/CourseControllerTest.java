@@ -30,7 +30,8 @@ public class CourseControllerTest {
 
     @MockBean
     private CourseService courseService;
-
+    
+    /** Testing if all the courses can be fetched **/
     @Test
     public void testGetAllCourses() throws Exception {
         List<Course> coursesList = new ArrayList<>();
@@ -58,6 +59,8 @@ public class CourseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].available_seats").value(15))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].teacher_id").value(1002));
     }
+    
+    /** Testing if all courses can be saved **/
 
     @Test
     public void testSaveCourses() throws Exception {

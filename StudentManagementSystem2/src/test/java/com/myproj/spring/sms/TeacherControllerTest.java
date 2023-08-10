@@ -36,7 +36,8 @@ public class TeacherControllerTest {
     // Mocking my service method
     // Comparing the result 
 
-
+    
+    /** Testing if the list of students can be returned **/
     @Test
     public void testDisplayListOfStudentsFromTeacherID() throws Exception {
         List<TeacherListDTOImpl> teachers = new ArrayList<>();

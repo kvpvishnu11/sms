@@ -30,7 +30,9 @@ public class AnnoucementsControllerTest {
 
 	@MockBean
 	private AnnoucementService annoucementService;
-
+	
+	
+	/** Testing if all announcements can be posted **/
 	@Test
 	public void testPostAllAnnouncements() throws Exception {
 
@@ -53,7 +55,8 @@ public class AnnoucementsControllerTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucement_id").value(2))
 				.andExpect(MockMvcResultMatchers.jsonPath("$[1].annoucement_note").value("Announcement 2"));
 	}
-
+	
+	/** Testing if all announcements in the system can be fetched **/
 	@Test
 	public void testGetAllAnnouncements() throws Exception {
 		// Preparing the data for my test case

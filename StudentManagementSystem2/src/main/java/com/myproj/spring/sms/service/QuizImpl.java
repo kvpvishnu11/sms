@@ -1,5 +1,8 @@
 package com.myproj.spring.sms.service;
 
+/** Implementation class that performs all crud operations for quiz controller**/
+/** Implements functionality like Getting quizzes, deleting old quizzes, submit quiz and calculate marks **/
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ public class QuizImpl implements QuizService {
 	@Autowired
 	private QuizRepository quizRepository;
 
+	/** save a new quiz into the system **/
+
 	@Transactional
 	@Override
 	public List<Quiz> saveNewQuiz(List<Quiz> q) {
@@ -24,6 +29,7 @@ public class QuizImpl implements QuizService {
 		return quizRepository.saveAll(q);
 	}
 
+	/** Get a Quiz using the course id **/
 	@Override
 	public List<Quiz> getQuiz(long id) {
 
@@ -48,7 +54,7 @@ public class QuizImpl implements QuizService {
 		List<Quiz> quizQuestions = quizRepository.getQuizQuestions(courseId);
 
 		for (QuizSubmissionDTO submission : quizSubmissions) {
-			Long questionId = submission.getQuestion_id();
+			Long questionId = submission.getQuestionId();
 			String chosenAnswer = submission.getChoosen_answer();
 
 			Quiz quizQuestion = findQuizQuestionById(quizQuestions, questionId);
@@ -63,9 +69,10 @@ public class QuizImpl implements QuizService {
 
 	}
 
+	/** Find the question using its id from the Quiz table **/
 	private Quiz findQuizQuestionById(List<Quiz> quizQuestions, Long questionId) {
 		for (Quiz quizQuestion : quizQuestions) {
-			if (quizQuestion.getQuestion_id() == questionId) {
+			if (quizQuestion.getQuestionId() == questionId) {
 				return quizQuestion;
 			}
 		}

@@ -1,5 +1,8 @@
 package com.myproj.spring.sms.service;
 
+/** Class that implements Enrollment service interface methods **/
+/** Used to perform CRUD operations and get list of enrollments for a student and save new enrollments for students **/
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ public class EnrollmentImpl implements EnrollmentService {
 	@Autowired
 	private CourseRepository courseRepository;
 
+	/** Save all the new course enrollments done by a student **/
 	@Transactional
 	@Override
 	public EnrollmentDTO saveEnrollments(EnrollmentDTO e) {
@@ -52,6 +56,8 @@ public class EnrollmentImpl implements EnrollmentService {
 
 		return e;
 	}
+
+	/** List down all the new enrollments for a student **/
 
 	@Override
 	public List<Enrollment> listAllCoursesByStudentID(long studentId) {

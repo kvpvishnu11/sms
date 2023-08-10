@@ -1,5 +1,7 @@
 package com.myproj.spring.sms.service;
 
+/** Service interface that contains methods for Getting quizzes, deleting old quizzes, submit quiz and calculate marks **/
+
 import java.util.List;
 
 import com.myproj.spring.sms.dto.QuizSubmissionDTO;

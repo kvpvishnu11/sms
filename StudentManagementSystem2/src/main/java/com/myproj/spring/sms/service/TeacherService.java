@@ -1,5 +1,7 @@
 package com.myproj.spring.sms.service;
 
+/** Service interface that contains methods to fetch all teachers, fetch students enrolled in their class, fetch teacher using their id's **/
+
 import java.util.List;
 
 import com.myproj.spring.sms.dto.StudentListDTO;

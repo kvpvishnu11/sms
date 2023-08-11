@@ -23,7 +23,7 @@ public class StudentManagementSystemApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*") // Allow requests from any origin
+                        .allowedOrigins("http://34.31.253.45") // Allow requests from any origin
                         .allowedMethods("*") // Allow all HTTP methods
                         .allowedHeaders("*") // Allow all headers
                         .allowCredentials(true)

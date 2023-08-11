@@ -23,7 +23,7 @@ public class StudentManagementSystemApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://127.0.0.1:5500")
+				registry.addMapping("/**").allowedOrigins("http://34.31.253.45")
 						.allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowCredentials(true)
 						.maxAge(3600);
 			}
